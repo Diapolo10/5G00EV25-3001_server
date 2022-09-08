@@ -1,5 +1,5 @@
 
-# project_name Change Log
+# Server Changelog
 
 All notable changes to this project will be documented in this file.
 
@@ -66,7 +66,7 @@ In-progress update goes here.
 
 _______________________________________________________________________________
 
-## [0.1.0] - YYYY-MM-DD
+## [0.1.0] - 2022-09-08
 
 This is the initial version of the project.
 
