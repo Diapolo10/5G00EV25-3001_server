@@ -1,8 +1,6 @@
 """This file contains the global configuration settings for the program"""
 
 import re
-from datetime import datetime
-from enum import Enum
 from pathlib import Path
 
 

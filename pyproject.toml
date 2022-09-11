@@ -109,6 +109,7 @@ extension-pkg-whitelist = [
 max-line-length = 120
 disable = [
     # https://vald-phoenix.github.io/pylint-errors/
+    'R0903',  # Too few public methods
 ]
 
 

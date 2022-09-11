@@ -2,7 +2,7 @@
 
 import logging
 
-from fastapi import APIRouter, Response, status
+from fastapi import APIRouter, status
 from fastapi.responses import PlainTextResponse
 
 from server.schemas import HelloWorld
@@ -14,7 +14,7 @@ router = APIRouter()
 
 
 @router.get('/', status_code=status.HTTP_200_OK, response_model=HelloWorld)
-async def get_root(response: Response):
+async def get_root():
     """A default route for testing"""
 
     logger.info("GET Hello World example")

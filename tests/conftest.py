@@ -3,7 +3,7 @@
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine  # type: ignore
-from sqlalchemy.core import Session  # type: ignore
+from sqlalchemy.orm import Session  # type: ignore
 from sqlalchemy_utils import database_exists, create_database  # type: ignore
 
 from server.config import (
@@ -26,13 +26,13 @@ def db_engine():
 
     if not database_exists:
         create_database(engine.url)
-    
+
     Base.metadata.create_all(bind=engine)
     yield engine
 
 
 @pytest.fixture(scope='function')
-def db(db_engine):
+def db_session(db_engine):
     """Creates a connection to the test database and handles cleanup"""
 
     connection = db_engine.connect()
@@ -40,25 +40,25 @@ def db(db_engine):
     # Begin a non-ORM transaction
     _ = connection.begin()
 
-    db = Session(bind=connection, expire_on_commit=False)
+    database_session = Session(bind=connection, expire_on_commit=False)
 
-    yield db
+    yield database_session
 
-    db.rollback()
+    database_session.rollback()
     connection.close()
 
 
 @pytest.fixture(scope='function')
-def client(db):
+def client(db_session):
     """
     Overrides the normal database access with test database,
     and yields a configured test client
     """
 
-    app.dependency_overrides[get_db] = lambda: db
+    app.dependency_overrides[get_db] = lambda: db_session
 
-    with TestClient(app) as c:
-        yield c
+    with TestClient(app) as test_client:
+        yield test_client
 
 
 # @pytest.fixture
