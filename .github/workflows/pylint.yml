@@ -27,4 +27,4 @@ jobs:
 
     - name: Analysing the code with pylint
       run: |
-        poetry run pylint server
+        poetry run pylint server --fail-under 9
