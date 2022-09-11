@@ -1,0 +1,60 @@
+"""This file contains the global configuration settings for the program"""
+
+import re
+from pathlib import Path
+
+
+# Common
+
+PROJECT_DIR = Path(__file__).parent
+ROOT_DIR = PROJECT_DIR.parent
+DOCS_DIR = ROOT_DIR / 'docs'
+CODE_EXAMPLES = DOCS_DIR / 'example_code'
+
+LOG_CONFIG = ROOT_DIR / 'logging.conf'
+PYPROJECT_TOML = ROOT_DIR / 'pyproject.toml'
+ROBOTS_TXT = PROJECT_DIR / 'routes' / 'robots.txt'
+
+
+# Database
+
+SQLALCHEMY_DATABASE_URL = 'sqlite:///./server.db'
+SQLALCHEMY_TEST_DATABASE_URL = 'sqlite:///./tests/test.db'
+# SQLALCHEMY_DATABASE_USERNAME = 'user'
+# SQLALCHEMY_DATABASE_PASSWORD = 'password'  # If used, this should be an environmental variable
+# SQLALCHEMY_DATABASE_URL = (
+#     'postgresql://'
+#     f'{SQLALCHEMY_DATABASE_USERNAME}:{SQLALCHEMY_DATABASE_PASSWORD}'
+#     '@postgresserver/db'
+# )
+
+
+# Running
+
+HOST = '127.0.0.1'
+PORT = 8080
+URL = f'http://{HOST}:{PORT}'
+
+
+# Regular expressions
+
+ANY_REGEX = re.compile(r'^.*$')
+SEM_VER_REGEX = re.compile(
+    r'''
+        (0|[1-9][0-9]*)\.  # Major
+        (0|[1-9][0-9]*)\.  # Minor
+        (0|[1-9][0-9]*)    # Patch
+        (?:-((?:0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z]*)
+        (?:\.(?:0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z]*))*))?  # Pre-release
+        (?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?               # Build
+    ''',
+    re.VERBOSE
+)
+
+
+# OpenAPI
+
+LABEL_LANG_MAPPING = {
+    'JavaScript': 'JavaScript',
+    'Rust':       'Rust',
+}

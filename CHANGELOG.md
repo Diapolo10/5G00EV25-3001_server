@@ -3,8 +3,8 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [CHANGELOG.md](http://changelog.md/)
-and this project adheres to [Semantic Versioning](http://semver.org/).
+The format is based on [CHANGELOG.md][CHANGELOG.md]
+and this project adheres to [Semantic Versioning][SemVer].
 
 <!-- 
 TEMPLATE
@@ -50,19 +50,61 @@ Lorem Ipsum dolor sit amet.
 <!--
 _______________________________________________________________________________
 
-## [0.1.1] - YYYY-MM-DD
+## [0.1.1] - 2022-09-11
 
-In-progress update goes here.
+This release implements the base functionality of FastAPI, from database access
+to basic project layout and the groundwork for new routes. It also adds
+application-wide logging, configures unit tests with some examples, and adds
+needed dependencies.
 
 ### Added
 
-- Stuff
+- Logging
+- Basic project layout
+- OpenAPI code samples
+- Pydantic models
+- Database support (SQLite for now)
+- `robots.txt`
 
 ### Changed
 
+- Updated dependencies
+- Updated `.gitignore`
 - Updated localisation files
 
+### Removed
+
+- `test_default.py` was no longer necessary
+
 -->
+
+_______________________________________________________________________________
+
+## [0.2.0] - 2022-09-11
+
+This release implements the base functionality of FastAPI, from database access
+to basic project layout and the groundwork for new routes. It also adds
+application-wide logging, configures unit tests with some examples, and adds
+needed dependencies.
+
+### Added
+
+- Logging
+- Basic project layout
+- OpenAPI code samples
+- Pydantic models
+- Database support (SQLite for now)
+- `robots.txt`
+
+### Changed
+
+- Updated dependencies
+- Updated `.gitignore`
+- Updated localisation files
+
+### Removed
+
+- `test_default.py` was no longer necessary
 
 _______________________________________________________________________________
 
@@ -74,15 +116,12 @@ This is the initial version of the project.
 
 - The base project
 
+[CHANGELOG.md]: http://changelog.md/
+[SemVer]: http://semver.org/
+
 <!-- markdownlint-configure-file {
-    "MD022": false,
-    "MD024": false,
-    "MD030": false,
-    "MD032": false
+    "MD024": false
 } -->
 <!--
-    MD022: Blanks around headings
     MD024: No duplicate headings
-    MD030: Spaces after list markers
-    MD032: Blanks around lists
 -->

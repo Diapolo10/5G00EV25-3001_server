@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3.0.0
+    - uses: actions/checkout@v3.0.2
 
     - name: Set up Python 3.10
-      uses: actions/setup-python@v3.0.0
+      uses: actions/setup-python@v4.2.0
       with:
         python-version: "3.10"
 
@@ -27,4 +27,4 @@ jobs:
 
     - name: Analysing the code with pylint
       run: |
-        poetry run pylint server
+        poetry run pylint server --fail-under 9

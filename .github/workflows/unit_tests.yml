@@ -18,8 +18,7 @@ jobs:
         tox-env: [
           py38,
           py39,
-          py310,
-          pypy3
+          py310
         ]
         include:
           - tox-env: py38
@@ -28,22 +27,14 @@ jobs:
             python-version: "3.9"
           - tox-env: py310
             python-version: "3.10"
-          - tox-env: pypy3
-            python-version: pypy-3.8
-
-        exclude:
-          - os: windows-latest
-            tox-env: pypy3
-          - os: macos-latest
-            tox-env: pypy3
     env:
       TOXENV: ${{ matrix.tox-env }}
 
     steps:
-    - uses: actions/checkout@v3.0.0
+    - uses: actions/checkout@v3.0.2
 
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3.0.0
+      uses: actions/setup-python@v4.2.0
       with:
         python-version: ${{ matrix.python-version }}
 
@@ -64,7 +55,7 @@ jobs:
 
     - name: Upload Results to CodeCov
       if: success()
-      uses: codecov/codecov-action@v2.1.0
+      uses: codecov/codecov-action@v3.1.0
       with:
         env_vars: TOXENV
         fail_ci_if_error: false
