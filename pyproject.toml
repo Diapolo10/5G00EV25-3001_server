@@ -26,13 +26,13 @@ __init__.py:F401,F403,F405\
 
 [tool.poetry]
 name = 'server'
-version = '0.1.0'
-description = "A template Poetry project structure."
+version = '0.2.0'
+description = "A messaging service server."
 
 authors = ["Lari Liuhamo <lari.liuhamo+pypi@gmail.com>",]
 maintainers = ["Lari Liuhamo <lari.liuhamo+pypi@gmail.com>",]
 
-include = ['CHANGELOG.md', 'LICENSE',]
+include = ['CHANGELOG.md', 'LICENSE', 'logging.conf']
 license = 'MIT'
 readme = 'README.md'
 
@@ -41,7 +41,12 @@ repository = 'https://github.com/Diapolo10/5G00EV25-3001_server'
 documentation = 'https://github.com/Diapolo10/5G00EV25-3001_server/tree/main/docs'
 
 keywords = [
+    'api',
+    'communication',
+    'network',
+    'networking',
     'python3',
+    'restful',
 ]
 classifiers = [
     'Development Status :: 3 - Alpha',
@@ -67,25 +72,37 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.8"
+fastapi = {version='^0.82.0', extras=['all',]}
+uvicorn = '^0.17.6'
+SQLAlchemy = '^1.4.37'
+SQLAlchemy-Utils = '^0.38.2'
+python-multipart = '^0.0.5'
+requests = '^2.28.1'
+tomli = '^2.0.1'
 
 
 [tool.poetry.dev-dependencies]
-coverage = {version = '*', extras = ['toml',]}
-flake8 = '*'
-mypy = '*'
-pylint = '*'
-pyproject-flake8 = '*'
-pytest = '*'
-pytest-cov = '*'
-tox = '*'
-tox-gh-actions = '*'
-wheel = '*'
+coverage = {version = '^6.2', extras = ['toml',]}
+flake8 = '^4.0.1'
+mypy = '^0.971'
+pylint = '^2.12.0'
+pyproject-flake8 = '^0.0.1a5'
+pytest = '^7.0.1'
+pytest-cov = '^3.0.0'
+tox = '^3.25.1'
+tox-gh-actions = '^2.9.1'
 
 
 [tool.poetry.urls]
 "Source code" = 'https://github.com/Diapolo10/5G00EV25-3001_server'
 "Tracker" = 'https://github.com/Diapolo10/5G00EV25-3001_server/issues'
 "Changelog" = 'https://github.com/Diapolo10/5G00EV25-3001_server/blob/main/CHANGELOG.md'
+
+
+[tool.pylint.'MASTER']
+extension-pkg-whitelist = [
+    'pydantic',
+]
 
 
 [tool.pylint.'MESSAGES CONTROL']

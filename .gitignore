@@ -141,3 +141,7 @@ tests/reports
 
 # Makefile installation stamp
 .install.stamp
+
+# Misc
+.VSCode*
+*.db
