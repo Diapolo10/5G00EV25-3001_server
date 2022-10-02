@@ -41,6 +41,7 @@ app.add_middleware(
 
 app.include_router(router)
 
+
 def custom_openapi():
     """Applies code examples to Redoc"""
 
@@ -62,6 +63,7 @@ def custom_openapi():
     app.openapi_schema = add_examples(openapi_schema)
 
     return app.openapi_schema
+
 
 app.openapi = custom_openapi  # type: ignore
 
