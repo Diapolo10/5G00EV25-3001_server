@@ -108,7 +108,7 @@ class Room(BaseModel):
         return value  # NOTE: Add validation
 
     @validator('owner')
-    def public_if_no_owner(cls, value, values, **_):  # pylint: disable=E0213
+    def public_if_no_owner(cls, value, values):  # pylint: disable=E0213
         """Verify that the server is public if no owner is set"""
 
         if value is None and values['public'] is False:
