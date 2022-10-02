@@ -1,6 +1,7 @@
 """Implements room routes"""
 
 import logging
+from typing import List
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -17,7 +18,7 @@ router = APIRouter(
 )
 
 
-@router.get('/', status_code=status.HTTP_200_OK, response_model=list[Room])
+@router.get('/', status_code=status.HTTP_200_OK, response_model=List[Room])
 async def get_public_rooms(db: Session = Depends(get_db)):
     """Fetches the public rooms"""
 
