@@ -5,6 +5,7 @@
 import logging
 from datetime import datetime
 from enum import Enum, auto
+from typing import Optional
 from uuid import UUID
 
 from pydantic import BaseModel, SecretStr, validator
@@ -95,7 +96,7 @@ class Room(BaseModel):
     id: UUID
     name: str
     public: bool
-    owner: UUID | None
+    owner: Optional[UUID]
 
     class Config:
         orm_mode = True
