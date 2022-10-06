@@ -4,13 +4,12 @@
 
 import logging
 from datetime import datetime
-from enum import Enum, auto
 from typing import Optional
 from uuid import UUID
 
 from pydantic import BaseModel, SecretStr, validator
 
-from server.config import MAX_MESSAGE_LENGTH, MIN_MESSAGE_LENGTH
+from server.config import AccessLevel, MAX_MESSAGE_LENGTH, MIN_MESSAGE_LENGTH
 
 logger = logging.getLogger(__name__)
 
@@ -19,16 +18,6 @@ class HelloWorld(BaseModel):
     """Hello, world!"""
 
     hello: str
-
-
-# Enums
-
-class AccessLevel(Enum):
-    BANNED = auto()
-    BASIC = auto()
-    VERIFIED = auto()
-    MODERATOR = auto()
-    ADMINISTRATOR = auto()
 
 
 # User models

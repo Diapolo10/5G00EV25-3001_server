@@ -4,7 +4,7 @@ import logging
 
 from fastapi import APIRouter
 
-from server.routes.api.v1 import db, management, room, user
+from server.routes.api.v1 import db, management, rooms, users
 
 logger = logging.getLogger(__name__)
 
@@ -14,5 +14,5 @@ router = APIRouter(
 
 router.include_router(db.router)
 router.include_router(management.router)
-router.include_router(room.router)
-router.include_router(user.router)
+router.include_router(rooms.router)
+router.include_router(users.router)

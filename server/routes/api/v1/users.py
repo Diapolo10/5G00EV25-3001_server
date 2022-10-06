@@ -10,7 +10,7 @@ from server.schemas import User
 logger = logging.getLogger(__name__)
 
 router = APIRouter(
-    prefix='/user'
+    prefix='/users'
 )
 
 

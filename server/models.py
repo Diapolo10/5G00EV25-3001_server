@@ -7,6 +7,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy_utils import UUIDType
 
 from server.config import (
+    AccessLevel,
     MAX_EMAIL_ADDRESS_LENGTH,
     MAX_MESSAGE_LENGTH,
     MAX_PASSWORD_HASH_LENGTH,
@@ -50,6 +51,7 @@ class Message(Base):
 
     id = Column(UUIDType(binary=False), primary_key=True, index=True, default=uuid.uuid4)
     user_id = Column(UUIDType(binary=False), default=uuid.uuid4)
+    room_id: Column[uuid.UUID] = Column(ForeignKey('rooms.id'), default=uuid.uuid4)
     message = Column(String(MAX_MESSAGE_LENGTH))
     timestamp = Column(DateTime)
 
@@ -65,4 +67,4 @@ class User(Base):
     username = Column(String(MAX_USERNAME_LENGTH))
     email = Column(String(MAX_EMAIL_ADDRESS_LENGTH), unique=True)
     password_hash = Column(String(MAX_PASSWORD_HASH_LENGTH))
-    global_access_level = Column(Integer, default=1)
+    global_access_level = Column(Integer, default=AccessLevel.BASIC)
