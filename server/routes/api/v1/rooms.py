@@ -103,7 +103,7 @@ async def put_message_by_id(room_id: UUID,
 
     db_message = crud.update_message(db, message=message, room_id=room_id)
     if db_message is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Message not found")
     return db_message
 
 

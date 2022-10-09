@@ -3,7 +3,7 @@
 # pylint: disable=W0621
 
 import uuid
-from typing import List
+from typing import Generator, List
 
 import pytest
 from fastapi.testclient import TestClient
@@ -56,7 +56,7 @@ def db_session(db_engine):
 
 
 @pytest.fixture(scope='function')
-def client(db_session):
+def client(db_session) -> Generator[TestClient, None, None]:
     """
     Overrides the normal database access with test database,
     and yields a configured test client

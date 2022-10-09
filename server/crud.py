@@ -165,3 +165,33 @@ def delete_message(db: Session, room_id: UUID, message_id: UUID):
             .delete()
     )
     db.commit()
+
+
+def update_user(db: Session, user: schemas.User) -> models.User:
+    """Updates a user"""
+
+    (
+        db.query(models.User)
+            .filter(
+                models.User.id == user.id,
+                models.User.email == user.email
+            )
+            .update({
+                'username': user.username,
+            })
+    )
+    db.commit()
+    return read_user(db, user_id=user.id)  # type: ignore[return-value]
+
+
+def delete_user(db: Session, user_id: UUID):
+    """Deletes a user"""
+
+    (
+        db.query(models.User)
+            .filter(
+                models.User.id == user_id
+            )
+            .delete()
+    )
+    db.commit()
