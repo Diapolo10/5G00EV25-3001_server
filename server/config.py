@@ -1,8 +1,7 @@
 """This file contains the global configuration settings for the program"""
 
 import re
-import uuid
-from enum import Enum, auto
+from enum import IntEnum, auto
 from pathlib import Path
 
 
@@ -44,7 +43,9 @@ SQLALCHEMY_TEST_DATABASE_URL = 'sqlite:///./tests/test.db'
 
 # Enums
 
-class AccessLevel(Enum):
+class AccessLevel(IntEnum):
+    """Contains different access levels for users"""
+
     BANNED = auto()
     BASIC = auto()
     VERIFIED = auto()
@@ -79,12 +80,6 @@ SEM_VER_REGEX = re.compile(
 
 USER_ROOT = '/api/v1/users'
 ROOM_ROOT = '/api/v1/rooms'
-TEST_UUIDS = (
-    uuid.UUID('019e6323-48a9-4bc9-8e91-49bb21d0944c'),
-    uuid.UUID('1cc7a51f-829c-408a-9547-f29665cadf65'),
-    uuid.UUID('dd8f575d-e865-42c4-94da-c6248ca3f806'),
-    uuid.UUID('e3ca61ae-f415-4bcd-963f-bbe125d0f338'),
-)
 
 
 # OpenAPI
