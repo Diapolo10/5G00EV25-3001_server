@@ -2,8 +2,8 @@
 
 # pylint: disable=W0621
 
-from typing import List
 import uuid
+from typing import List
 
 import pytest
 from fastapi.testclient import TestClient
