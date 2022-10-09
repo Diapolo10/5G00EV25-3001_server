@@ -39,7 +39,7 @@ class UserCreate(UserBase):
 class User(UserBase):
     """User of the system"""
 
-    global_access_level: AccessLevel
+    global_access_level: AccessLevel = AccessLevel.BASIC
 
     class Config:
         orm_mode = True
