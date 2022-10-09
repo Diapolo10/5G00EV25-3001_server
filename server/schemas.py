@@ -5,9 +5,9 @@
 import logging
 from datetime import datetime
 from typing import Optional
-from uuid import UUID
+from uuid import UUID, uuid4
 
-from pydantic import BaseModel, SecretStr, validator
+from pydantic import BaseModel, Field, SecretStr, validator
 
 from server.config import AccessLevel, MAX_MESSAGE_LENGTH, MIN_MESSAGE_LENGTH
 
@@ -25,7 +25,7 @@ class HelloWorld(BaseModel):
 class UserBase(BaseModel):
     """Base user model"""
 
-    id: UUID
+    id: UUID = Field(default_factory=uuid4)
     username: str
     email: str  # Consider email validator: https://pydantic-docs.helpmanual.io/usage/types/#pydantic-types
 
@@ -50,10 +50,10 @@ class User(UserBase):
 class Message(BaseModel):
     """Message sent in a chatroom"""
 
-    id: UUID
+    id: UUID = Field(default_factory=uuid4)
     user_id: UUID
     message: str
-    timestamp: datetime
+    creation_time: datetime = Field(default_factory=datetime.now)
 
     class Config:
         orm_mode = True
@@ -82,10 +82,10 @@ class EncryptedMessage(Message):
 class Room(BaseModel):
     """Chatroom"""
 
-    id: UUID
+    id: UUID = Field(default_factory=uuid4)
     name: str
-    public: bool
-    owner: Optional[UUID]
+    public: bool = True
+    owner: Optional[UUID] = None
 
     class Config:
         orm_mode = True

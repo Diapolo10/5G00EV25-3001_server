@@ -1,5 +1,6 @@
 """Launches the messaging service"""
 
+import logging
 import logging.config
 
 import tomli

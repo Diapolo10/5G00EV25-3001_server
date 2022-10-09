@@ -20,7 +20,8 @@ per-file-ignores = """\
 # F401: Ignore "unused" imports
 # F403: Ignore star imports
 # F405: Ignore names from star imports
-__init__.py:F401,F403,F405\
+__init__.py:F401,F403,F405
+crud.py:E131\
 """
 
 

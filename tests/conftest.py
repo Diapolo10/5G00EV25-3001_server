@@ -1,16 +1,23 @@
 """Unit test configurations"""
 
+# pylint: disable=W0621
+
+from typing import List
+import uuid
+
 import pytest
 from fastapi.testclient import TestClient
-from sqlalchemy import create_engine  # type: ignore
-from sqlalchemy.orm import Session  # type: ignore
-from sqlalchemy_utils import database_exists, create_database  # type: ignore
+from pydantic import SecretStr
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
+from sqlalchemy_utils import database_exists, create_database
 
 from server.config import (
     SQLALCHEMY_TEST_DATABASE_URL,
 )
 from server.database import Base, get_db
 from server.main import app
+from server import crud, schemas
 
 
 @pytest.fixture(scope='session')
@@ -61,6 +68,61 @@ def client(db_session):
         yield test_client
 
 
-# @pytest.fixture
-# def filled_database(db):
-#     populate_database(db)
+@pytest.fixture
+def public_rooms(db_session):
+    """
+    Adds some example public rooms to the database
+    """
+
+    rooms: List[uuid.UUID] = [
+        crud.create_room(
+            db_session,
+            schemas.Room(name=f"Public Room #{num}", public=True)
+        ).id
+        for num in range(5)
+    ]
+
+    yield rooms
+
+
+@pytest.fixture
+def test_users(db_session):
+    """
+    Adds some example users to the database
+    """
+
+    # NOTE: Maybe randomise in the future
+    users: List[uuid.UUID] = [
+        crud.create_user(
+            db_session,
+            schemas.UserCreate(
+                username=f"TestUser{num}",
+                email=f"test.user{num}@jmail.com",
+                password=SecretStr("CORRECT HORSE BATTERY STAPLE")
+            )
+        ).id
+        for num in range(5)
+    ]
+
+    yield users
+
+
+@pytest.fixture
+def private_rooms(db_session, test_users):
+    """
+    Adds some example private rooms to the database
+    """
+
+    rooms: List[uuid.UUID] = [
+        crud.create_room(
+            db_session,
+            schemas.Room(
+                name=f"Private Room #{num}",
+                public=False,
+                owner=user
+            )
+        ).id
+        for num, user in enumerate(test_users)
+    ]
+
+    yield rooms
