@@ -35,7 +35,10 @@ version = '0.2.0'
 description = "A messaging service server."
 
 authors = ["Lari Liuhamo <lari.liuhamo+pypi@gmail.com>",]
-maintainers = ["Lari Liuhamo <lari.liuhamo+pypi@gmail.com>",]
+maintainers = [
+    "Juha Järvinen <juha.3.jarvinen@tuni.fi>",
+    "Lari Liuhamo <lari.liuhamo+pypi@gmail.com>",
+]
 
 include = ['CHANGELOG.md', 'LICENSE', 'logging.conf']
 license = 'MIT'

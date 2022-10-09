@@ -1,7 +1,7 @@
 """C.R.U.D. - Create Read Update Delete"""
 
-from datetime import datetime
 import logging
+from datetime import datetime
 from typing import List, Optional
 from uuid import UUID
 
