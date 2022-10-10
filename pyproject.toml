@@ -10,6 +10,7 @@ omit = [
     '.tox/*',
     'tests/*',
     '**/main.py',  # No point in including code that cannot be tested anyway
+    '**/openapi_extension.py',
 ]
 
 
