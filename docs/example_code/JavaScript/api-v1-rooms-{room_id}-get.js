@@ -2,7 +2,9 @@
 
 // Fetches and prints out the root response
 
-const url = `/`
+const room_id = `7b039c76-e656-454e-a97a-85e7490bade4`;
+
+const url = `/api/v1/rooms/{room_id}`;
 
 const getResponse = async url => {
     const response = await fetch(url);
