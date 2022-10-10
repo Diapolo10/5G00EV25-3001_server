@@ -27,7 +27,7 @@ def test_post_new_user(client):
 
 
 def test_post_new_user_id_exists(client, test_users):
-    """Test creating a new user with an existing ID"""
+    """Tests creating a new user with an existing ID"""
 
     data = {
         'id': str(test_users[0]),
@@ -49,7 +49,7 @@ def test_post_login_user(client, test_users):
 
 
 def test_post_logout_user(client, test_users):
-    """Test user logout"""
+    """Tests user logout"""
 
     _ = client, test_users
 

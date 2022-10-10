@@ -4,7 +4,7 @@ from fastapi import status
 
 
 def test_get_root(client):
-    """Test the hello world response"""
+    """Tests the hello world response"""
 
     response = client.get('/')
     assert response.status_code == status.HTTP_200_OK, response.text
@@ -12,7 +12,7 @@ def test_get_root(client):
 
 
 def test_get_robots_txt(client):
-    """Test getting the robots.txt data"""
+    """Tests getting the robots.txt data"""
 
     response = client.get('/robots.txt')
     assert response.status_code == status.HTTP_200_OK, response.text

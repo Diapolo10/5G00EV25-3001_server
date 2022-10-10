@@ -8,6 +8,8 @@ from pydantic import ValidationError
 
 from server.config import (
     ROOM_ROOT as ROOT,
+    MIN_MESSAGE_LENGTH,
+    MAX_MESSAGE_LENGTH,
 )
 
 
@@ -20,7 +22,7 @@ def test_get_public_rooms(client):
 
 
 def test_post_new_room_public(client):
-    """Test creating a new public room"""
+    """Tests creating a new public room"""
 
     data = {
         'id': str(uuid.uuid4()),
@@ -37,7 +39,7 @@ def test_post_new_room_public(client):
 
 
 def test_post_new_room_private(client, test_users):
-    """Test creating a new private room"""
+    """Tests creating a new private room"""
 
     data = {
         'id': str(uuid.uuid4()),
@@ -55,7 +57,7 @@ def test_post_new_room_private(client, test_users):
 
 
 def test_post_new_room_private_no_owner(client):
-    """Test error handling when creating an ownerless private room"""
+    """Tests error handling when creating an ownerless private room"""
 
     data = {
         'id': str(uuid.uuid4()),
@@ -68,28 +70,28 @@ def test_post_new_room_private_no_owner(client):
 
 
 def test_get_room_by_id_public(client, public_rooms):
-    """Test fetching a public room"""
+    """Tests fetching a public room"""
 
     response = client.get(f'{ROOT}/{public_rooms[0]}')
     assert response.status_code == status.HTTP_200_OK, response.text
 
 
 def test_get_room_by_id_private(client, private_rooms):
-    """Test fetching a private room"""
+    """Tests fetching a private room"""
 
     response = client.get(f'{ROOT}/{private_rooms[0]}')
     assert response.status_code == status.HTTP_200_OK, response.text
 
 
 def test_get_room_by_id_nonexistent(client):
-    """Test fetching a room that does not exist"""
+    """Tests fetching a room that does not exist"""
 
     response = client.get(f'{ROOT}/{uuid.uuid4()}')
     assert response.status_code == status.HTTP_404_NOT_FOUND, response.text
 
 
 def test_post_message_by_id(client, public_rooms, test_users):
-    """Test sending a message to a public room"""
+    """Tests sending a message to a public room"""
 
     data = {
         'id': str(uuid.uuid4()),
@@ -105,8 +107,32 @@ def test_post_message_by_id(client, public_rooms, test_users):
     assert response.status_code == status.HTTP_400_BAD_REQUEST
 
 
+def test_post_message_by_id_message_too_short(client, public_rooms, test_users):
+    """Tests sending a message that is too short to a public room"""
+
+    data = {
+        'user_id': str(test_users[0]),
+        'message': "0" * (MIN_MESSAGE_LENGTH-1),
+    }
+
+    response = client.post(f'{ROOT}/{public_rooms[0]}', json=data)
+    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY, response.text
+
+
+def test_post_message_by_id_message_too_long(client, public_rooms, test_users):
+    """Tests sending a message that is too long to a public room"""
+
+    data = {
+        'user_id': str(test_users[0]),
+        'message': "0" * (MAX_MESSAGE_LENGTH+1),
+    }
+
+    response = client.post(f'{ROOT}/{public_rooms[0]}', json=data)
+    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY, response.text
+
+
 def test_delete_room_by_id_public(client, public_rooms):
-    """Test deleting a public room"""
+    """Tests deleting a public room"""
 
     # NOTE: We need to check admin permissions first
 
@@ -118,7 +144,7 @@ def test_delete_room_by_id_public(client, public_rooms):
 
 
 def test_delete_room_by_id_private(client, private_rooms):
-    """Test deleting private rooms"""
+    """Tests deleting private rooms"""
 
     # NOTE: We need to check the room owner matches the
     # currently logged in user, or an administrator
@@ -131,7 +157,7 @@ def test_delete_room_by_id_private(client, private_rooms):
 
 
 def test_get_message_by_id(client, public_rooms, test_users):
-    """Test fetching a message from a public room"""
+    """Tests fetching a message from a public room"""
 
     message_id = str(uuid.uuid4())
 
@@ -151,7 +177,7 @@ def test_get_message_by_id(client, public_rooms, test_users):
 
 
 def test_put_message_by_id(client, public_rooms, test_users):
-    """Test editing a message from a public room"""
+    """Tests editing a message from a public room"""
 
     message_id = str(uuid.uuid4())
 
@@ -181,7 +207,7 @@ def test_put_message_by_id(client, public_rooms, test_users):
 
 
 def test_delete_message_by_id(client, public_rooms, test_users):
-    """Test deleting a message from a public room"""
+    """Tests deleting a message from a public room"""
 
     message_id = str(uuid.uuid4())
 
