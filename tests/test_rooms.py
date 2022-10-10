@@ -206,6 +206,21 @@ def test_put_message_by_id(client, public_rooms, test_users):
     assert response.json()['message'] == "What you are, I was; what I am, you will be."
 
 
+def test_put_message_by_id_nonexistent(client, public_rooms, test_users):
+    """Tests editing a message that doesn't exist from a public room"""
+
+    message_id = str(uuid.uuid4())
+
+    edit_data = {
+        'id': message_id,
+        'user_id': str(test_users[0]),
+        'message': "What you are, I was; what I am, you will be.",
+    }
+
+    response = client.put(f'{ROOT}/{public_rooms[0]}/message/{message_id}', json=edit_data)
+    assert response.status_code == status.HTTP_404_NOT_FOUND, response.text
+
+
 def test_delete_message_by_id(client, public_rooms, test_users):
     """Tests deleting a message from a public room"""
 
