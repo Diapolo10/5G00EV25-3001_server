@@ -13,12 +13,18 @@ from server.config import (
 )
 
 
-def test_get_public_rooms(client):
+def test_get_public_rooms(client, public_rooms):
     """Tests getting public chatrooms"""
 
     response = client.get(f'{ROOT}/')
     assert response.status_code == status.HTTP_200_OK, response.text
-    print(response.json())
+
+
+def test_get_public_rooms_empty(client):
+    """Tests getting public chatrooms when there are none"""
+
+    response = client.get(f'{ROOT}/')
+    assert response.status_code == status.HTTP_200_OK, response.text
 
 
 def test_post_new_room_public(client):
