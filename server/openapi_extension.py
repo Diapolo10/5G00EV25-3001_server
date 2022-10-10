@@ -19,8 +19,12 @@ def add_examples(openapi_schema: dict, docs_dir=CODE_EXAMPLES) -> dict:
         files = [f for f in folder.iterdir() if f.is_file()]
         for file in files:
             parts = file.name.split('-')
-            if len(parts) >= 2:
-                route = '/' + '/'.join(parts[:-1])
+            if len(parts) >= 1:
+                route = '/'
+                if len(parts) >= 2:
+                    route += '/'.join(parts[:-1])
+                    if not parts[-2].endswith('}'):
+                        route += '/'
                 method = parts[-1].split('.')[0]
                 logger.info(
                     "[%s][%s][%s][%s]",
