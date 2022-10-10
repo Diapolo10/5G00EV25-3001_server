@@ -17,7 +17,7 @@ def read_public_rooms(db: Session) -> List[models.Room]:
 
     return (
         db.query(models.Room)
-            .filter(models.Room.public is True)
+            .filter(models.Room.public == True)
             .all()
     )
 
@@ -69,7 +69,7 @@ def read_user_by_email(db: Session, email: str) -> Optional[models.User]:
     )
 
 
-def read_users(db: Session, skip: int = 0, limit: int = 100) -> List[models.User]:
+def read_users(db: Session, skip: int = 0, limit: Optional[int] = None) -> List[models.User]:
     """Gets all users"""
 
     return (
