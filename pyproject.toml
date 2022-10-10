@@ -22,8 +22,10 @@ per-file-ignores = """\
 # F401: Ignore "unused" imports
 # F403: Ignore star imports
 # F405: Ignore names from star imports
+# E131: Ignore unaligned continuation lines from method chains
+# E712: Ignore SQLAlchemy boolean comparisons
 __init__.py:F401,F403,F405
-crud.py:E131\
+crud.py:E131,E712\
 """
 
 

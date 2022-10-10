@@ -2,6 +2,7 @@
 
 from server import crud
 
+
 def test_read_public_rooms_all(db_session, public_rooms):
     """Tests fetching all public rooms"""
 
@@ -48,4 +49,3 @@ def test_read_messages_empty(db_session, public_rooms):
 
     db_messages = crud.read_messages(db_session, public_rooms[0])
     assert len(db_messages) == 0, db_messages
-

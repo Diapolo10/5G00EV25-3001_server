@@ -17,7 +17,7 @@ def read_public_rooms(db: Session) -> List[models.Room]:
 
     return (
         db.query(models.Room)
-            .filter(models.Room.public == True)
+            .filter(models.Room.public == True)  # pylint: disable=C0121
             .all()
     )
 
