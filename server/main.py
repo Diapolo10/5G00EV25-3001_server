@@ -2,6 +2,7 @@
 
 import logging
 import logging.config
+import sys
 
 import tomli
 import uvicorn  # type: ignore
@@ -9,12 +10,14 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
 
+from server import models
 from server.config import (
     HOST,
     PORT,
     LOG_CONFIG,
     PYPROJECT_TOML,
 )
+from server.database import engine
 from server.openapi_extension import add_examples
 from server.routes import router
 
@@ -24,6 +27,11 @@ project_metadata = tomli.loads(PYPROJECT_TOML.read_text())
 # Setup loggers
 logging.config.fileConfig(LOG_CONFIG, disable_existing_loggers=False)
 logger = logging.getLogger(__name__)
+
+if "pytest" not in sys.modules:
+    # Initialise the main database
+    logger.info("Initialising database")
+    models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     swagger_ui_parameters={
