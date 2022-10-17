@@ -85,7 +85,7 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.8"
 fastapi = {version='^0.85.1', extras=['all',]}
-uvicorn = '^0.17.6'
+uvicorn = '^0.18.3'
 SQLAlchemy = '^1.4.42'
 SQLAlchemy-Utils = '^0.38.2'
 python-multipart = '^0.0.5'
