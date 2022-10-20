@@ -9,7 +9,7 @@ from uuid import UUID, uuid4
 
 from pydantic import BaseModel, Field, SecretStr, validator
 
-from server.config import AccessLevel, MAX_MESSAGE_LENGTH, MIN_MESSAGE_LENGTH
+from eguivalet_server.config import AccessLevel, MAX_MESSAGE_LENGTH, MIN_MESSAGE_LENGTH
 
 logger = logging.getLogger(__name__)
 

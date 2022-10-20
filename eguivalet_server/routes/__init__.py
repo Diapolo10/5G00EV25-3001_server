@@ -4,7 +4,7 @@ import logging
 
 from fastapi import APIRouter
 
-from server.routes import api, other
+from eguivalet_server.routes import api, other
 
 logger = logging.getLogger(__name__)
 

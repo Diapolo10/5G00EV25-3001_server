@@ -4,7 +4,7 @@ import uuid
 
 from fastapi import status
 
-from server.config import (
+from eguivalet_server.config import (
     USER_ROOT as ROOT,
 )
 

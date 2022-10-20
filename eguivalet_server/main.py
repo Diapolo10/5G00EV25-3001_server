@@ -10,16 +10,16 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
 
-from server import models
-from server.config import (
+from eguivalet_server import models
+from eguivalet_server.config import (
     HOST,
     PORT,
     LOG_CONFIG,
     PYPROJECT_TOML,
 )
-from server.database import engine
-from server.openapi_extension import add_examples
-from server.routes import router
+from eguivalet_server.database import engine
+from eguivalet_server.openapi_extension import add_examples
+from eguivalet_server.routes import router
 
 project_metadata = tomli.loads(PYPROJECT_TOML.read_text())
 

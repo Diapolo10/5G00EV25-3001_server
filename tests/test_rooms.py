@@ -6,14 +6,14 @@ import pytest
 from fastapi import status
 from pydantic import ValidationError
 
-from server.config import (
+from eguivalet_server.config import (
     ROOM_ROOT as ROOT,
     MIN_MESSAGE_LENGTH,
     MAX_MESSAGE_LENGTH,
 )
 
 
-def test_get_public_rooms(client, public_rooms):
+def test_get_public_rooms(client, public_rooms):  # pylint: disable=W0613
     """Tests getting public chatrooms"""
 
     response = client.get(f'{ROOT}/')

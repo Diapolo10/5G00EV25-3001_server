@@ -1,6 +1,6 @@
 """Tests for CRUD-operations not tested elsewhere"""
 
-from server import crud
+from eguivalet_server import crud
 
 
 def test_read_public_rooms_all(db_session, public_rooms):

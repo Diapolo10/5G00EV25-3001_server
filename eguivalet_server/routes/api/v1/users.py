@@ -6,9 +6,9 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
-from server import crud
-from server.database import get_db
-from server.schemas import User, UserCreate
+from eguivalet_server import crud
+from eguivalet_server.database import get_db
+from eguivalet_server.schemas import User, UserCreate
 
 logger = logging.getLogger(__name__)
 
