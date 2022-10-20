@@ -72,7 +72,7 @@ jobs:
     needs: test
 
     steps:
-    - uses: actions/checkout@latest
+    - uses: actions/checkout@v3
 
     - name: Publish distribution 📦 to Test PyPI
       uses: JRubics/poetry-publish@v1
