@@ -7,7 +7,7 @@ from uuid import UUID
 
 from sqlalchemy.orm import Session
 
-from server import models, schemas
+from eguivalet_server import models, schemas
 
 logger = logging.getLogger(__name__)
 

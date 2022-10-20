@@ -34,9 +34,9 @@ plugins = ['sqlmypy',]
 
 
 [tool.poetry]
-name = 'server'
+name = 'eguivalet_server'
 version = '0.2.0'
-description = "A messaging service server."
+description = "A server implementation for the EguiValet messaging service."
 
 authors = ["Lari Liuhamo <lari.liuhamo+pypi@gmail.com>",]
 maintainers = [
@@ -74,7 +74,6 @@ classifiers = [
     'Programming Language :: Python :: 3.9',
     'Programming Language :: Python :: 3.10',
     'Programming Language :: Python :: Implementation :: CPython',
-    'Programming Language :: Python :: Implementation :: PyPy',
     'Programming Language :: SQL',
     'Topic :: Communications :: Chat',
     'Topic :: Security',
@@ -83,7 +82,7 @@ classifiers = [
 
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = '^3.8'
 fastapi = {version='^0.85.1', extras=['all',]}
 uvicorn = '^0.18.3'
 SQLAlchemy = '^1.4.42'

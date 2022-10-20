@@ -1,6 +1,6 @@
 # 5G00EV25-3001 Server
 
-A server for the messaging service project.
+A server implementation for the EguiValet messaging service.
 
 |              |   |
 |--------------|---|
@@ -30,7 +30,7 @@ poetry install
 in order to create a virtual environment for the project and install its
 dependencies.
 
-You can then run the project by running `server/main.py` while within the
+You can then run the project by running `eguivalet_server/main.py` while within the
 virtual environment.
 
 <!-- markdownlint-configure-file {

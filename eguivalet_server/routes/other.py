@@ -5,8 +5,8 @@ import logging
 from fastapi import APIRouter, status
 from fastapi.responses import PlainTextResponse
 
-from server.schemas import HelloWorld
-from server.config import ROBOTS_TXT
+from eguivalet_server.schemas import HelloWorld
+from eguivalet_server.config import ROBOTS_TXT
 
 logger = logging.getLogger(__name__)
 

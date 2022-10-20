@@ -2,7 +2,7 @@
 
 import logging
 
-from server.config import CODE_EXAMPLES, LABEL_LANG_MAPPING
+from eguivalet_server.config import CODE_EXAMPLES, LABEL_LANG_MAPPING
 
 logger = logging.getLogger(__name__)
 

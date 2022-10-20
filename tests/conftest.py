@@ -12,12 +12,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 from sqlalchemy_utils import database_exists, create_database
 
-from server.config import (
+from eguivalet_server.config import (
     SQLALCHEMY_TEST_DATABASE_URL,
 )
-from server.database import Base, get_db
-from server.main import app
-from server import crud, schemas
+from eguivalet_server.database import Base, get_db
+from eguivalet_server.main import app
+from eguivalet_server import crud, schemas
 
 
 @pytest.fixture(scope='session')

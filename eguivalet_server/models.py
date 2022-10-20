@@ -6,14 +6,14 @@ from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String, T
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import UUIDType  # type: ignore
 
-from server.config import (
+from eguivalet_server.config import (
     AccessLevel,
     MAX_EMAIL_ADDRESS_LENGTH,
     MAX_MESSAGE_LENGTH,
     MAX_PASSWORD_HASH_LENGTH,
     MAX_USERNAME_LENGTH,
 )
-from server.database import Base
+from eguivalet_server.database import Base
 
 
 # Link tables
