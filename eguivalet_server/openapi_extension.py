@@ -38,7 +38,7 @@ def add_examples(openapi_schema: dict, docs_dir=CODE_EXAMPLES) -> dict:
                     openapi_schema[path_key][route][method][code_key].append({
                         'lang': LABEL_LANG_MAPPING[folder.name],
                         'source': file.read_text(),
-                        'label': folder.name
+                        'label': LABEL_LANG_MAPPING[folder.name]
                     })
                 else:
                     logger.error("Error adding code example to OpenAPI; %s", file)
