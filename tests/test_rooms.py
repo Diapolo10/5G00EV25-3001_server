@@ -162,6 +162,37 @@ def test_delete_room_by_id_private(client, private_rooms):
     assert response.status_code == status.HTTP_404_NOT_FOUND, response.text
 
 
+def test_get_messages_empty(client, public_rooms):
+    """Tests fetching all messages from a public room"""
+
+    response = client.get(f'{ROOT}/{public_rooms[0]}/messages')
+    assert response.status_code == status.HTTP_200_OK, response.text
+    assert len(response.json()) == 0
+
+
+def test_get_messages(client, public_rooms, test_users):
+    """Tests fetching all messages from a public room"""
+
+    messages = [
+        "Hasta la vista.",
+        "What's up, doc?",
+        "Eunie is as Eunie does.",
+    ]
+
+    for user, message in zip(test_users, messages):
+        data = {
+            'user_id': str(user),
+            'message': message,
+        }
+        response = client.post(f'{ROOT}/{public_rooms[0]}', json=data)
+        assert response.status_code == status.HTTP_200_OK, response.text
+        assert response.json()['message'] == message
+
+    response = client.get(f'{ROOT}/{public_rooms[0]}/messages')
+    assert response.status_code == status.HTTP_200_OK, response.text
+    assert len(response.json()) == len(messages)
+
+
 def test_get_message_by_id(client, public_rooms, test_users):
     """Tests fetching a message from a public room"""
 
@@ -177,7 +208,7 @@ def test_get_message_by_id(client, public_rooms, test_users):
     assert response.status_code == status.HTTP_200_OK, response.text
     assert response.json()['message'] == "Vincit qui se vincit."
 
-    response = client.get(f'{ROOT}/{public_rooms[0]}/message/{message_id}')
+    response = client.get(f'{ROOT}/{public_rooms[0]}/messages/{message_id}')
     assert response.status_code == status.HTTP_200_OK, response.text
     assert response.json()['message'] == "Vincit qui se vincit."
 
@@ -203,11 +234,11 @@ def test_put_message_by_id(client, public_rooms, test_users):
         'message': "What you are, I was; what I am, you will be.",
     }
 
-    response = client.put(f'{ROOT}/{public_rooms[0]}/message/{message_id}', json=edit_data)
+    response = client.put(f'{ROOT}/{public_rooms[0]}/messages/{message_id}', json=edit_data)
     assert response.status_code == status.HTTP_200_OK, response.text
     assert response.json()['message'] == "What you are, I was; what I am, you will be."
 
-    response = client.get(f'{ROOT}/{public_rooms[0]}/message/{message_id}')
+    response = client.get(f'{ROOT}/{public_rooms[0]}/messages/{message_id}')
     assert response.status_code == status.HTTP_200_OK, response.text
     assert response.json()['message'] == "What you are, I was; what I am, you will be."
 
@@ -223,7 +254,7 @@ def test_put_message_by_id_nonexistent(client, public_rooms, test_users):
         'message': "What you are, I was; what I am, you will be.",
     }
 
-    response = client.put(f'{ROOT}/{public_rooms[0]}/message/{message_id}', json=edit_data)
+    response = client.put(f'{ROOT}/{public_rooms[0]}/messages/{message_id}', json=edit_data)
     assert response.status_code == status.HTTP_404_NOT_FOUND, response.text
 
 
@@ -242,8 +273,8 @@ def test_delete_message_by_id(client, public_rooms, test_users):
     assert response.status_code == status.HTTP_200_OK, response.text
     assert response.json()['message'] == "Je crois en moi."
 
-    response = client.delete(f'{ROOT}/{public_rooms[0]}/message/{message_id}')
+    response = client.delete(f'{ROOT}/{public_rooms[0]}/messages/{message_id}')
     assert response.status_code == status.HTTP_204_NO_CONTENT, response.text
 
-    response = client.get(f'{ROOT}/{public_rooms[0]}/message/{message_id}')
+    response = client.get(f'{ROOT}/{public_rooms[0]}/messages/{message_id}')
     assert response.status_code == status.HTTP_404_NOT_FOUND, response.text

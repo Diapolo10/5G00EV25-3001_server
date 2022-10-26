@@ -293,6 +293,9 @@ not everything, which is why this directory deserves its own coverage.
 - `test_crud.py`
   Contains unit tests for CRUD operations not already covered by other tests
 
+- `test_database.py`
+  Contains unit tests for miscellaneous database functions not covered elsewhere
+
 - `test_rooms.py`
   Contains unit tests for chatroom routes
 

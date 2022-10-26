@@ -80,7 +80,19 @@ async def delete_room_by_id(room_id: UUID, db: Session = Depends(get_db)):
     crud.delete_room(db, room_id=room_id)
 
 
-@router.get('/{room_id}/message/{message_id}', status_code=status.HTTP_200_OK, response_model=Message)
+@router.get('/{room_id}/messages', status_code=status.HTTP_200_OK, response_model=List[Message])
+async def get_messages(room_id: UUID, db: Session = Depends(get_db)):
+    """Fetches the specified message"""
+
+    logger.info("GET messages from room ID: %s", room_id)
+
+    db_messages = crud.read_messages(db, room_id=room_id)
+    if not db_messages:
+        logger.info("No messages found")
+    return db_messages
+
+
+@router.get('/{room_id}/messages/{message_id}', status_code=status.HTTP_200_OK, response_model=Message)
 async def get_message_by_id(room_id: UUID, message_id: UUID, db: Session = Depends(get_db)):
     """Fetches the specified message"""
 
@@ -92,7 +104,7 @@ async def get_message_by_id(room_id: UUID, message_id: UUID, db: Session = Depen
     return db_message
 
 
-@router.put('/{room_id}/message/{message_id}', status_code=status.HTTP_200_OK, response_model=Message)
+@router.put('/{room_id}/messages/{message_id}', status_code=status.HTTP_200_OK, response_model=Message)
 async def put_message_by_id(room_id: UUID,
                             message_id: UUID,
                             message: Message,
@@ -107,7 +119,7 @@ async def put_message_by_id(room_id: UUID,
     return db_message
 
 
-@router.delete('/{room_id}/message/{message_id}', status_code=status.HTTP_204_NO_CONTENT)
+@router.delete('/{room_id}/messages/{message_id}', status_code=status.HTTP_204_NO_CONTENT)
 async def delete_message_by_id(room_id: UUID, message_id: UUID, db: Session = Depends(get_db)):
     """Deletes the specified message"""
 

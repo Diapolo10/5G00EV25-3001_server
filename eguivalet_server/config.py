@@ -85,6 +85,7 @@ ROOM_ROOT = '/api/v1/rooms'
 # OpenAPI
 
 LABEL_LANG_MAPPING = {
-    'JavaScript': 'JavaScript',
-    'Rust': 'Rust',
+    'js': 'JavaScript',
+    'rust': 'Rust',
+    'ts': 'TypeScript',
 }
