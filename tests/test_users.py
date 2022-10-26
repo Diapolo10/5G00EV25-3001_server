@@ -43,17 +43,27 @@ def test_post_new_user_id_exists(client, test_users):
 def test_post_login_user(client, test_users):
     """Tests user login"""
 
-    _ = client, test_users
+    data = {
+        'id': str(test_users[0]),
+        'username': "Lazar Diarmaid",
+        'email': "lazar.diarmaid@fian.na",
+    }
 
-    return NotImplemented
+    response = client.post(f'{ROOT}/login', json=data)
+    assert response.status_code == status.HTTP_200_OK, response.text
 
 
 def test_post_logout_user(client, test_users):
     """Tests user logout"""
 
-    _ = client, test_users
+    data = {
+        'id': str(test_users[0]),
+        'username': "Lazar Diarmaid",
+        'email': "lazar.diarmaid@fian.na",
+    }
 
-    return NotImplemented
+    response = client.post(f'{ROOT}/logout', json=data)
+    assert response.status_code == status.HTTP_200_OK, response.text
 
 
 def test_get_user_by_id(client, test_users):

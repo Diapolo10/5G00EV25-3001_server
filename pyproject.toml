@@ -8,6 +8,7 @@ branch = true
 relative_files = true
 omit = [
     '.tox/*',
+    '**/__main__.py',
     'tests/*',
     '**/main.py',  # No point in including code that cannot be tested anyway
     '**/openapi_extension.py',
@@ -35,7 +36,7 @@ plugins = ['sqlmypy',]
 
 [tool.poetry]
 name = 'eguivalet_server'
-version = '0.2.0'
+version = '0.2.1'
 description = "A server implementation for the EguiValet messaging service."
 
 authors = ["Lari Liuhamo <lari.liuhamo+pypi@gmail.com>",]
