@@ -103,7 +103,7 @@ pytest = '^7.2.0'
 pytest-cov = '^4.0.0'
 sqlalchemy-stubs = '^0.4.0'
 tox = '^3.27.1'
-tox-gh-actions = '^2.11.0'
+tox-gh-actions = '^2.12.0'
 types-sqlalchemy-utils = '^1.0.1'
 
 
