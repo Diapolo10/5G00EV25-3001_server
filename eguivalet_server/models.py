@@ -2,6 +2,7 @@
 
 import uuid
 
+from fastapi_users.db import SQLAlchemyBaseUserTableUUID
 from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String, Table
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import UUIDType  # type: ignore
@@ -59,13 +60,22 @@ class Message(Base):
     room = relationship("Room", back_populates='messages')
 
 
-class User(Base):
+# class User(Base):
+#     """A database model for users"""
+# 
+#     __tablename__ = 'users'
+# 
+#     id = Column(UUIDType(binary=False), primary_key=True, index=True, default=uuid.uuid4, nullable=False)
+#     username = Column(String(MAX_USERNAME_LENGTH))
+#     email = Column(String(MAX_EMAIL_ADDRESS_LENGTH), unique=True)
+#     password_hash = Column(String(MAX_PASSWORD_HASH_LENGTH))
+#     global_access_level = Column(Integer, default=AccessLevel.BASIC)
+
+
+class User(SQLAlchemyBaseUserTableUUID, Base):
     """A database model for users"""
 
     __tablename__ = 'users'
 
-    id = Column(UUIDType(binary=False), primary_key=True, index=True, default=uuid.uuid4, nullable=False)
     username = Column(String(MAX_USERNAME_LENGTH))
-    email = Column(String(MAX_EMAIL_ADDRESS_LENGTH), unique=True)
-    password_hash = Column(String(MAX_PASSWORD_HASH_LENGTH))
     global_access_level = Column(Integer, default=AccessLevel.BASIC)

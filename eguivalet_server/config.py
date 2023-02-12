@@ -30,8 +30,8 @@ MAX_PASSWORD_HASH_LENGTH = 128
 
 # Database
 
-SQLALCHEMY_DATABASE_URL = 'sqlite:///./server.db'
-SQLALCHEMY_TEST_DATABASE_URL = 'sqlite:///./tests/test.db'
+SQLALCHEMY_DATABASE_URL = 'sqlite+aiosqlite:///./server.db'
+SQLALCHEMY_TEST_DATABASE_URL = 'sqlite+aiosqlite:///./tests/test.db'
 # SQLALCHEMY_DATABASE_USERNAME = 'user'
 # SQLALCHEMY_DATABASE_PASSWORD = 'password'  # If used, this should be an environmental variable
 # SQLALCHEMY_DATABASE_URL = (
@@ -48,7 +48,6 @@ class AccessLevel(IntEnum):
 
     BANNED = auto()
     BASIC = auto()
-    VERIFIED = auto()
     MODERATOR = auto()
     ADMINISTRATOR = auto()
 

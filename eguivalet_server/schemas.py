@@ -7,6 +7,7 @@ from datetime import datetime
 from typing import Optional
 from uuid import UUID, uuid4
 
+from fastapi_users import schemas as user_schemas
 from pydantic import BaseModel, Field, SecretStr, validator
 
 from eguivalet_server.config import AccessLevel, MAX_MESSAGE_LENGTH, MIN_MESSAGE_LENGTH
@@ -22,27 +23,26 @@ class HelloWorld(BaseModel):
 
 # User models
 
-class UserBase(BaseModel):
-    """Base user model"""
+class UserRead(user_schemas.BaseUser[UUID]):
+    """User read data"""
 
-    id: UUID = Field(default_factory=uuid4)
+    # id: UUID = Field(default_factory=uuid4)
     username: str
-    email: str  # Consider email validator: https://pydantic-docs.helpmanual.io/usage/types/#pydantic-types
+    # email: str  # Consider email validator: https://pydantic-docs.helpmanual.io/usage/types/#pydantic-types
 
 
-class UserCreate(UserBase):
-    """Used when creating a new user"""
+class UserCreate(user_schemas.BaseUserCreate):
+    """User write data"""
 
-    password: SecretStr
-
-
-class User(UserBase):
-    """User of the system"""
-
+    username: str
     global_access_level: AccessLevel = AccessLevel.BASIC
 
-    class Config:
-        orm_mode = True
+
+class UserUpdate(user_schemas.BaseUserUpdate):
+    """User update data"""
+
+    username: str
+    global_access_level: Optional[AccessLevel] = None
 
 
 # Chat models
