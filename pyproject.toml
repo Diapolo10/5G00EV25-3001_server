@@ -97,7 +97,7 @@ tomli = '^2.0.1'
 coverage = {version = '^7.2', extras = ['toml',]}
 flake8 = '^4.0.1'
 mypy = '^1.0'
-pylint = '^2.16.2'
+pylint = '^2.16.3'
 pyproject-flake8 = '^4.0.1'
 pytest = '^7.2.2'
 pytest-cov = '^4.0.0'
