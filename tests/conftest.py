@@ -1,23 +1,23 @@
 """Unit test configurations"""
 
-# pylint: disable=W0621
-
 import uuid
-from typing import Generator, List
+from collections.abc import Generator
+
+# pylint: disable=W0621
 
 import pytest
 from fastapi.testclient import TestClient
 from pydantic import SecretStr
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
-from sqlalchemy_utils import database_exists, create_database
+from sqlalchemy_utils import create_database, database_exists
 
+from eguivalet_server import crud, schemas
 from eguivalet_server.config import (
     SQLALCHEMY_TEST_DATABASE_URL,
 )
 from eguivalet_server.database import Base, get_db
 from eguivalet_server.main import app
-from eguivalet_server import crud, schemas
 
 
 @pytest.fixture(scope='session')
@@ -27,18 +27,18 @@ def db_engine():
     engine = create_engine(
         SQLALCHEMY_TEST_DATABASE_URL,
         connect_args={
-            'check_same_thread': False
-        }
+            'check_same_thread': False,
+        },
     )
 
     if not database_exists:
         create_database(engine.url)
 
     Base.metadata.create_all(bind=engine)
-    yield engine
+    return engine
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture()
 def db_session(db_engine):
     """Creates a connection to the test database and handles cleanup"""
 
@@ -55,7 +55,7 @@ def db_session(db_engine):
     connection.close()
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture()
 def client(db_session) -> Generator[TestClient, None, None]:
     """
     Overrides the normal database access with test database,
@@ -68,61 +68,61 @@ def client(db_session) -> Generator[TestClient, None, None]:
         yield test_client
 
 
-@pytest.fixture
+@pytest.fixture()
 def public_rooms(db_session):
     """
     Adds some example public rooms to the database
     """
 
-    rooms: List[uuid.UUID] = [
+    rooms: list[uuid.UUID] = [
         crud.create_room(
             db_session,
-            schemas.Room(name=f"Public Room #{num}", public=True)
+            schemas.Room(name=f"Public Room #{num}", public=True),
         ).id
         for num in range(5)
     ]
 
-    yield rooms
+    return rooms
 
 
-@pytest.fixture
+@pytest.fixture()
 def test_users(db_session):
     """
     Adds some example users to the database
     """
 
     # NOTE: Maybe randomise in the future
-    users: List[uuid.UUID] = [
+    users: list[uuid.UUID] = [
         crud.create_user(
             db_session,
             schemas.UserCreate(
                 username=f"TestUser{num}",
                 email=f"test.user{num}@jmail.com",
-                password=SecretStr("CORRECT HORSE BATTERY STAPLE")
-            )
+                password=SecretStr("CORRECT HORSE BATTERY STAPLE"),
+            ),
         ).id
         for num in range(5)
     ]
 
-    yield users
+    return users
 
 
-@pytest.fixture
+@pytest.fixture()
 def private_rooms(db_session, test_users):
     """
     Adds some example private rooms to the database
     """
 
-    rooms: List[uuid.UUID] = [
+    rooms: list[uuid.UUID] = [
         crud.create_room(
             db_session,
             schemas.Room(
                 name=f"Private Room #{num}",
                 public=False,
-                owner=user
-            )
+                owner=user,
+            ),
         ).id
         for num, user in enumerate(test_users)
     ]
 
-    yield rooms
+    return rooms

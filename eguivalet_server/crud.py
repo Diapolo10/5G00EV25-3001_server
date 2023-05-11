@@ -2,7 +2,6 @@
 
 import logging
 from datetime import datetime
-from typing import List, Optional
 from uuid import UUID
 
 from sqlalchemy.orm import Session
@@ -12,7 +11,7 @@ from eguivalet_server import models, schemas
 logger = logging.getLogger(__name__)
 
 
-def read_public_rooms(db: Session) -> List[models.Room]:
+def read_public_rooms(db: Session) -> list[models.Room]:
     """Fetches all public rooms"""
 
     return (
@@ -22,7 +21,7 @@ def read_public_rooms(db: Session) -> List[models.Room]:
     )
 
 
-def read_room(db: Session, room_id: UUID) -> Optional[models.Room]:
+def read_room(db: Session, room_id: UUID) -> models.Room | None:
     """Fetches a room by the room ID"""
 
     return (
@@ -49,7 +48,7 @@ def delete_room(db: Session, room_id: UUID):
     db.commit()
 
 
-def read_user(db: Session, user_id: UUID) -> Optional[models.User]:
+def read_user(db: Session, user_id: UUID) -> models.User | None:
     """Gets a user by the user ID"""
 
     return (
@@ -59,7 +58,7 @@ def read_user(db: Session, user_id: UUID) -> Optional[models.User]:
     )
 
 
-def read_user_by_email(db: Session, email: str) -> Optional[models.User]:
+def read_user_by_email(db: Session, email: str) -> models.User | None:
     """Gets a user by the user email"""
 
     return (
@@ -69,7 +68,7 @@ def read_user_by_email(db: Session, email: str) -> Optional[models.User]:
     )
 
 
-def read_users(db: Session, skip: int = 0, limit: Optional[int] = None) -> List[models.User]:
+def read_users(db: Session, skip: int = 0, limit: int | None = None) -> list[models.User]:
     """Gets all users"""
 
     return (
@@ -87,7 +86,7 @@ def create_user(db: Session, user: schemas.UserCreate) -> models.User:
     db_user = models.User(
         email=user.email,
         username=user.username,
-        password_hash=fake_hashed_password
+        password_hash=fake_hashed_password,
     )
 
     db.add(db_user)
@@ -96,14 +95,14 @@ def create_user(db: Session, user: schemas.UserCreate) -> models.User:
     return db_user
 
 
-def read_message(db: Session, room_id: UUID, message_id: UUID) -> Optional[models.Message]:
+def read_message(db: Session, room_id: UUID, message_id: UUID) -> models.Message | None:
     """Fetches an existying message"""
 
     return (
         db.query(models.Message)
             .filter(
                 models.Message.id == message_id,
-                models.Message.room_id == room_id
+                models.Message.room_id == room_id,
             )
             .first()
     )
@@ -112,7 +111,7 @@ def read_message(db: Session, room_id: UUID, message_id: UUID) -> Optional[model
 def read_messages(db: Session,
                   room_id: UUID,
                   skip: int = 0,
-                  limit: Optional[int] = None) -> List[models.Message]:
+                  limit: int | None = None) -> list[models.Message]:
     """Fetches all messages in a room"""
 
     return (
@@ -142,11 +141,11 @@ def update_message(db: Session, message: schemas.Message, room_id: UUID) -> mode
         db.query(models.Message)
             .filter(
                 models.Message.id == message.id,
-                models.Message.room_id == room_id
+                models.Message.room_id == room_id,
             )
             .update({
                 'message': message.message,
-                'last_edited': datetime.now()
+                'last_edited': datetime.now(),
             })
     )
     db.commit()
@@ -160,7 +159,7 @@ def delete_message(db: Session, room_id: UUID, message_id: UUID):
         db.query(models.Message)
             .filter(
                 models.Message.id == message_id,
-                models.Message.room_id == room_id
+                models.Message.room_id == room_id,
             )
             .delete()
     )
@@ -174,7 +173,7 @@ def update_user(db: Session, user: schemas.User) -> models.User:
         db.query(models.User)
             .filter(
                 models.User.id == user.id,
-                models.User.email == user.email
+                models.User.email == user.email,
             )
             .update({
                 'username': user.username,
@@ -190,7 +189,7 @@ def delete_user(db: Session, user_id: UUID):
     (
         db.query(models.User)
             .filter(
-                models.User.id == user_id
+                models.User.id == user_id,
             )
             .delete()
     )

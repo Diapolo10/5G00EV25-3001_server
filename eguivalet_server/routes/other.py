@@ -5,8 +5,8 @@ import logging
 from fastapi import APIRouter, status
 from fastapi.responses import PlainTextResponse
 
-from eguivalet_server.schemas import HelloWorld
 from eguivalet_server.config import ROBOTS_TXT
+from eguivalet_server.schemas import HelloWorld
 
 logger = logging.getLogger(__name__)
 
@@ -14,7 +14,7 @@ router = APIRouter()
 
 
 @router.get('/', status_code=status.HTTP_200_OK, response_model=HelloWorld)
-async def get_root():
+async def get_root() -> dict[str, str]:
     """A default route for testing"""
 
     logger.info("GET Hello World example")
@@ -24,7 +24,7 @@ async def get_root():
 
 
 @router.get('/robots.txt', status_code=status.HTTP_200_OK, response_class=PlainTextResponse)
-async def get_robots_txt():
+async def get_robots_txt() -> str:
     """Gives the contents of robots.txt"""
 
     logger.info("GET robots.txt")

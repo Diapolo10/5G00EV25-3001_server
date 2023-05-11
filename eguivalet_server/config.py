@@ -4,7 +4,6 @@ import re
 from enum import IntEnum, auto
 from pathlib import Path
 
-
 # Common
 
 PROJECT_DIR = Path(__file__).parent
@@ -71,7 +70,7 @@ SEM_VER_REGEX = re.compile(
         (?:\.(?:0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z]*))*))?  # Pre-release
         (?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?               # Build
     ''',
-    re.VERBOSE
+    re.VERBOSE,
 )
 
 

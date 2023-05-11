@@ -7,9 +7,11 @@ from fastapi import status
 from pydantic import ValidationError
 
 from eguivalet_server.config import (
-    ROOM_ROOT as ROOT,
-    MIN_MESSAGE_LENGTH,
     MAX_MESSAGE_LENGTH,
+    MIN_MESSAGE_LENGTH,
+)
+from eguivalet_server.config import (
+    ROOM_ROOT as ROOT,
 )
 
 
@@ -179,7 +181,7 @@ def test_get_messages(client, public_rooms, test_users):
         "Eunie is as Eunie does.",
     ]
 
-    for user, message in zip(test_users, messages):
+    for user, message in zip(test_users, messages, strict=False):
         data = {
             'user_id': str(user),
             'message': message,

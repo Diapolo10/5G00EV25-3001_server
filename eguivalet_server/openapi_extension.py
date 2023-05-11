@@ -1,13 +1,14 @@
 """Extends OpenAPI to add enriched documentation"""
 
 import logging
+from pathlib import Path
 
 from eguivalet_server.config import CODE_EXAMPLES, LABEL_LANG_MAPPING
 
 logger = logging.getLogger(__name__)
 
 
-def add_examples(openapi_schema: dict, docs_dir=CODE_EXAMPLES) -> dict:
+def add_examples(openapi_schema: dict, docs_dir: Path = CODE_EXAMPLES) -> dict:
     """Adds code examples to the Redoc interface"""
 
     path_key = 'paths'
@@ -21,14 +22,14 @@ def add_examples(openapi_schema: dict, docs_dir=CODE_EXAMPLES) -> dict:
             parts = file.name.split('-')
             if len(parts) >= 1:
                 route = '/'
-                if len(parts) >= 2:
+                if len(parts) >= 2:  # noqa: PLR2004
                     route += '/'.join(parts[:-1])
                     if not parts[-2].endswith('}'):
                         route += '/'
                 method = parts[-1].split('.')[0]
                 logger.info(
                     "[%s][%s][%s][%s]",
-                    path_key, route, method, code_key
+                    path_key, route, method, code_key,
                 )
 
                 if route in openapi_schema[path_key]:
@@ -38,7 +39,7 @@ def add_examples(openapi_schema: dict, docs_dir=CODE_EXAMPLES) -> dict:
                     openapi_schema[path_key][route][method][code_key].append({
                         'lang': LABEL_LANG_MAPPING[folder.name],
                         'source': file.read_text(),
-                        'label': LABEL_LANG_MAPPING[folder.name]
+                        'label': LABEL_LANG_MAPPING[folder.name],
                     })
                 else:
                     logger.error("Error adding code example to OpenAPI; %s", file)

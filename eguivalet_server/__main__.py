@@ -6,8 +6,8 @@ import uvicorn  # type: ignore
 
 from eguivalet_server.config import (
     HOST,
-    PORT,
     LOG_CONFIG,
+    PORT,
 )
 
 uvicorn.run(
@@ -17,5 +17,5 @@ uvicorn.run(
     log_level=logging.INFO,
     reload=True,
     log_config=str(LOG_CONFIG),
-    use_colors=True
+    use_colors=True,
 )

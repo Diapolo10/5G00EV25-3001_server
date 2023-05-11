@@ -13,8 +13,8 @@ from fastapi.openapi.utils import get_openapi
 from eguivalet_server import models
 from eguivalet_server.config import (
     HOST,
-    PORT,
     LOG_CONFIG,
+    PORT,
     PYPROJECT_TOML,
 )
 from eguivalet_server.database import engine
@@ -63,7 +63,7 @@ def custom_openapi():
         title="Messaging Service Server",
         version=poetry['version'],
         description=poetry['description'],
-        routes=app.routes
+        routes=app.routes,
     )
     openapi_schema['info']['x-logo'] = {
         'url': 'https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png',
@@ -84,5 +84,5 @@ if __name__ == '__main__':
         reload=True,
         log_level=logging.INFO,
         log_config=str(LOG_CONFIG),
-        use_colors=True
+        use_colors=True,
     )

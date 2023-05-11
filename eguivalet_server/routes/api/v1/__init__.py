@@ -17,7 +17,7 @@ router.include_router(rooms.router)
 router.include_router(users.router)
 
 router.include_router(
-    users.fastapi_users.get_auth_router(users.auth_backend), prefix="/auth/jwt", tags=["auth"]
+    users.fastapi_users.get_auth_router(users.auth_backend), prefix="/auth/jwt", tags=["auth"],
 )
 router.include_router(
     users.fastapi_users.get_register_router(UserRead, UserCreate),

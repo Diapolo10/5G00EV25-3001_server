@@ -8,14 +8,13 @@ from sqlalchemy.orm import relationship
 from sqlalchemy_utils import UUIDType  # type: ignore
 
 from eguivalet_server.config import (
-    AccessLevel,
     MAX_EMAIL_ADDRESS_LENGTH,
     MAX_MESSAGE_LENGTH,
     MAX_PASSWORD_HASH_LENGTH,
     MAX_USERNAME_LENGTH,
+    AccessLevel,
 )
 from eguivalet_server.database import Base
-
 
 # Link tables
 
@@ -24,7 +23,7 @@ users_in_rooms_table = Table(
     'users_in_rooms',
     Base.metadata,
     Column('user_id', ForeignKey('users.id'), primary_key=True),
-    Column('room_id', ForeignKey('rooms.id'), primary_key=True)
+    Column('room_id', ForeignKey('rooms.id'), primary_key=True),
 )
 
 

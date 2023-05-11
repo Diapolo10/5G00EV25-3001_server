@@ -2,15 +2,16 @@
 
 # pylint: disable=missing-class-docstring
 
+from __future__ import annotations
 import logging
 from datetime import datetime
-from typing import Optional
+from typing import Any
 from uuid import UUID, uuid4
 
 from fastapi_users import schemas as user_schemas
 from pydantic import BaseModel, Field, SecretStr, validator
 
-from eguivalet_server.config import AccessLevel, MAX_MESSAGE_LENGTH, MIN_MESSAGE_LENGTH
+from eguivalet_server.config import MAX_MESSAGE_LENGTH, MIN_MESSAGE_LENGTH, AccessLevel
 
 logger = logging.getLogger(__name__)
 
@@ -42,7 +43,7 @@ class UserUpdate(user_schemas.BaseUserUpdate):
     """User update data"""
 
     username: str
-    global_access_level: Optional[AccessLevel] = None
+    global_access_level: AccessLevel | None = None
 
 
 # Chat models
@@ -50,7 +51,7 @@ class UserUpdate(user_schemas.BaseUserUpdate):
 class Message(BaseModel):
     """Message sent in a chatroom"""
 
-    id: UUID = Field(default_factory=uuid4)
+    id: UUID = Field(default_factory=uuid4)  # noqa: A003
     user_id: UUID
     message: str
     creation_time: datetime = Field(default_factory=datetime.now)
@@ -59,17 +60,17 @@ class Message(BaseModel):
         orm_mode = True
 
     @validator('message')
-    def message_length_acceptable(cls, value):  # pylint: disable=E0213
+    def message_length_acceptable(cls: Message, value: str) -> str:  # noqa: N805
         """Verify that the message length makes sense"""
 
-        if not MIN_MESSAGE_LENGTH <= len(value):
+        if not len(value) >= MIN_MESSAGE_LENGTH:
             raise ValueError("Message is too short")
         if not len(value) <= MAX_MESSAGE_LENGTH:
             raise ValueError("Message is too long")
         return value
 
     @validator('user_id')
-    def user_id_exists(cls, value):  # pylint: disable=E0213
+    def user_id_exists(cls: Message, value: UUID) -> UUID:  # noqa: N805
         """Verify that the given user exists (just in case)"""
 
         return value  # NOTE: Implement if needed
@@ -82,22 +83,22 @@ class EncryptedMessage(Message):
 class Room(BaseModel):
     """Chatroom"""
 
-    id: UUID = Field(default_factory=uuid4)
+    id: UUID = Field(default_factory=uuid4)  # noqa: A003
     name: str
     public: bool = True
-    owner: Optional[UUID] = None
+    owner: UUID | None = None
 
     class Config:
         orm_mode = True
 
     @validator('owner')
-    def owner_exists(cls, value):  # pylint: disable=E0213
+    def owner_exists(cls: Room, value: UUID | None) -> UUID | None:  # noqa: N805
         """Verify that the room owner exists"""
 
         return value  # NOTE: Add validation
 
     @validator('owner')
-    def public_if_no_owner(cls, value, values):  # pylint: disable=E0213
+    def public_if_no_owner(cls: Room, value: UUID | None, values: dict[str, Any]) -> UUID | None:  # noqa: N805
         """Verify that the server is public if no owner is set"""
 
         if value is None and values['public'] is False:
