@@ -15,21 +15,6 @@ omit = [
 ]
 
 
-[tool.flake8]
-max-line-length = 120
-extend-ignore = ''  # https://www.flake8rules.com/
-max-complexity = 15  # Info: https://en.wikipedia.org/wiki/Cyclomatic_complexity
-per-file-ignores = """\
-# F401: Ignore "unused" imports
-# F403: Ignore star imports
-# F405: Ignore names from star imports
-# E131: Ignore unaligned continuation lines from method chains
-# E712: Ignore SQLAlchemy boolean comparisons
-__init__.py:F401,F403,F405
-crud.py:E131,E712\
-"""
-
-
 [tool.mypy]
 plugins = ['sqlmypy',]
 
@@ -128,26 +113,6 @@ tox-gh-actions = '^3.1.0'
 "Changelog" = 'https://github.com/Diapolo10/5G00EV25-3001_server/blob/main/CHANGELOG.md'
 
 
-[tool.pylint.'MASTER']
-extension-pkg-whitelist = [
-    'pydantic',
-]
-
-
-[tool.pylint.'FORMAT']
-good-names = [
-    'db',
-]
-
-
-[tool.pylint.'MESSAGES CONTROL']
-max-line-length = 120
-disable = [
-    # https://vald-phoenix.github.io/pylint-errors/
-    'R0903',  # Too few public methods
-]
-
-
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = """
@@ -161,6 +126,7 @@ addopts = """
 testpaths = [
     'tests',
 ]
+
 
 [tool.ruff]
 select = [
