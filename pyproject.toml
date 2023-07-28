@@ -84,7 +84,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = '^3.8'
-fastapi = {version='>=0.85.1,<0.100.0', extras=['all',]}
+fastapi = {version='>=0.85.1,<0.101.0', extras=['all',]}
 uvicorn = '>=0.18.3,<0.24.0'
 SQLAlchemy = '>=1.4.42,<3.0.0'
 SQLAlchemy-Utils = '>=0.38.2,<0.42.0'
