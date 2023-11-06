@@ -1537,13 +1537,13 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
 name = "uvicorn"
-version = "0.23.2"
+version = "0.24.0"
 description = "The lightning-fast ASGI server."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "uvicorn-0.23.2-py3-none-any.whl", hash = "sha256:1f9be6558f01239d4fdf22ef8126c39cb1ad0addf76c40e760549d2c2f43ab53"},
-    {file = "uvicorn-0.23.2.tar.gz", hash = "sha256:4d3cc12d7727ba72b64d12d3cc7743124074c0a69f7b201512fc50c3e3f1569a"},
+    {file = "uvicorn-0.24.0-py3-none-any.whl", hash = "sha256:3d19f13dfd2c2af1bfe34dd0f7155118ce689425fdf931177abe832ca44b8a04"},
+    {file = "uvicorn-0.24.0.tar.gz", hash = "sha256:368d5d81520a51be96431845169c225d771c9dd22a58613e1a181e6c4512ac33"},
 ]
 
 [package.dependencies]
@@ -1751,4 +1751,4 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "c8fdc2b821e7b3d0172ad3156a2783a1ae36e374aa0203283618cadb82ecdc29"
+content-hash = "69a8002c664b326d6589a97ce8a484556fee512eb17bfb660119241e5eb254dc"
