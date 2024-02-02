@@ -4,7 +4,6 @@ import uuid
 from collections.abc import Generator
 
 # pylint: disable=W0621
-
 import pytest
 from fastapi.testclient import TestClient
 from pydantic import SecretStr

@@ -3,6 +3,7 @@
 # pylint: disable=missing-class-docstring
 
 from __future__ import annotations
+
 import logging
 from datetime import datetime
 from typing import Any
@@ -51,7 +52,7 @@ class UserUpdate(user_schemas.BaseUserUpdate):
 class Message(BaseModel):
     """Message sent in a chatroom"""
 
-    id: UUID = Field(default_factory=uuid4)  # noqa: A003
+    id: UUID = Field(default_factory=uuid4)
     user_id: UUID
     message: str
     creation_time: datetime = Field(default_factory=datetime.now)
@@ -83,7 +84,7 @@ class EncryptedMessage(Message):
 class Room(BaseModel):
     """Chatroom"""
 
-    id: UUID = Field(default_factory=uuid4)  # noqa: A003
+    id: UUID = Field(default_factory=uuid4)
     name: str
     public: bool = True
     owner: UUID | None = None

@@ -61,9 +61,9 @@ class Message(Base):
 
 # class User(Base):
 #     """A database model for users"""
-# 
+#
 #     __tablename__ = 'users'
-# 
+#
 #     id = Column(UUIDType(binary=False), primary_key=True, index=True, default=uuid.uuid4, nullable=False)
 #     username = Column(String(MAX_USERNAME_LENGTH))
 #     email = Column(String(MAX_EMAIL_ADDRESS_LENGTH), unique=True)
