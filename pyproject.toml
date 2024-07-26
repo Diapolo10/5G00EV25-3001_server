@@ -96,7 +96,7 @@ tomli = '^2.0.1'
 [tool.poetry.dev-dependencies]
 coverage = {version = '^7.6', extras = ['toml',]}
 flake8 = '^4.0.1'
-mypy = '^1.10'
+mypy = '^1.11'
 pylint = '^3.2.6'
 pyproject-flake8 = '^4.0.1'
 pytest = '^8.3.2'
