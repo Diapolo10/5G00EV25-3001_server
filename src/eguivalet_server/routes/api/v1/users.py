@@ -4,18 +4,17 @@ from __future__ import annotations
 
 import logging
 from typing import TYPE_CHECKING, Annotated
+from uuid import UUID  # noqa: TCH003
 
 from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm import Session  # noqa: TCH002
 
 from eguivalet_server import crud
+from eguivalet_server.database import get_db  # noqa: TCH001
 from eguivalet_server.schemas import User, UserCreate
 
 if TYPE_CHECKING:
-    from uuid import UUID
 
-    from sqlalchemy.orm import Session
-
-    from eguivalet_server.database import get_db
     from eguivalet_server.models import User as UserModel
 
 logger = logging.getLogger(__name__)
