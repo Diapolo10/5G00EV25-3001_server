@@ -1,4 +1,4 @@
-"""Implements API routes"""
+"""Implements API routes."""
 
 import logging
 

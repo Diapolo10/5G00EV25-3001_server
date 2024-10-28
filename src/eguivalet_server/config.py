@@ -1,9 +1,8 @@
-"""This file contains the global configuration settings for the program"""
+"""Contains the global configuration settings for the program."""
 
 import re
 from enum import IntEnum, auto
 from pathlib import Path
-
 
 # Common
 
@@ -32,19 +31,19 @@ MAX_PASSWORD_HASH_LENGTH = 128
 
 SQLALCHEMY_DATABASE_URL = 'sqlite:///./server.db'
 SQLALCHEMY_TEST_DATABASE_URL = 'sqlite:///./tests/test.db'
-# SQLALCHEMY_DATABASE_USERNAME = 'user'
-# SQLALCHEMY_DATABASE_PASSWORD = 'password'  # If used, this should be an environmental variable
-# SQLALCHEMY_DATABASE_URL = (
-#     'postgresql://'
-#     f'{SQLALCHEMY_DATABASE_USERNAME}:{SQLALCHEMY_DATABASE_PASSWORD}'
+# SQLALCHEMY_DATABASE_USERNAME = 'user'  # noqa: ERA001
+# SQLALCHEMY_DATABASE_PASSWORD = 'password'  # If used, this should be an environmental variable  # noqa: ERA001
+# SQLALCHEMY_DATABASE_URL = (  # noqa: ERA001, RUF100
+#     'postgresql://'  # noqa: ERA001
+#     f'{SQLALCHEMY_DATABASE_USERNAME}:{SQLALCHEMY_DATABASE_PASSWORD}'  # noqa: ERA001
 #     '@postgresserver/db'
-# )
+# )  # noqa: ERA001, RUF100
 
 
 # Enums
 
 class AccessLevel(IntEnum):
-    """Contains different access levels for users"""
+    """Contains different access levels for users."""
 
     BANNED = auto()
     BASIC = auto()
@@ -64,15 +63,15 @@ URL = f'http://{HOST}:{PORT}'
 
 ANY_REGEX = re.compile(r'^.*$')
 SEM_VER_REGEX = re.compile(
-    r'''
+    r"""
         (0|[1-9][0-9]*)\.  # Major
         (0|[1-9][0-9]*)\.  # Minor
         (0|[1-9][0-9]*)    # Patch
         (?:-((?:0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z]*)
         (?:\.(?:0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z]*))*))?  # Pre-release
         (?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?               # Build
-    ''',
-    re.VERBOSE
+    """,
+    re.VERBOSE,
 )
 
 

@@ -11,12 +11,12 @@ jobs:
   pypi-deploy:
     name: Build and publish Python 🐍 distributions 📦 to live PyPI
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@master
+
+    - name: Checkout repository
+      uses: actions/checkout@master
 
     - name: Publish distribution 📦 to PyPI
       uses: JRubics/poetry-publish@v2.0
       with:
-        ignore_dev_requirements: 'yes'
         pypi_token: ${{ secrets.PYPI_PASSWORD }}

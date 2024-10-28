@@ -145,3 +145,9 @@ tests/reports
 # Misc
 .VSCode*
 *.db
+
+# Ruff
+.ruff_cache
+
+# Logs
+logs/

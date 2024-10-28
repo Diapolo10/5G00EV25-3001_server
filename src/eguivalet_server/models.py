@@ -1,20 +1,19 @@
-"""Contains SQLAlchemy database models"""
+"""Contains SQLAlchemy database models."""
 
 import uuid
 
 from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String, Table
 from sqlalchemy.orm import relationship
-from sqlalchemy_utils import UUIDType  # type: ignore
+from sqlalchemy_utils import UUIDType
 
 from eguivalet_server.config import (
-    AccessLevel,
     MAX_EMAIL_ADDRESS_LENGTH,
     MAX_MESSAGE_LENGTH,
     MAX_PASSWORD_HASH_LENGTH,
     MAX_USERNAME_LENGTH,
+    AccessLevel,
 )
 from eguivalet_server.database import Base
-
 
 # Link tables
 
@@ -23,7 +22,7 @@ users_in_rooms_table = Table(
     'users_in_rooms',
     Base.metadata,
     Column('user_id', ForeignKey('users.id'), primary_key=True),
-    Column('room_id', ForeignKey('rooms.id'), primary_key=True)
+    Column('room_id', ForeignKey('rooms.id'), primary_key=True),
 )
 
 
@@ -31,7 +30,7 @@ users_in_rooms_table = Table(
 
 
 class Room(Base):
-    """A database model for rooms"""
+    """A database model for rooms."""
 
     __tablename__ = 'rooms'
 
@@ -45,13 +44,13 @@ class Room(Base):
 
 
 class Message(Base):
-    """A database model for messages"""
+    """A database model for messages."""
 
     __tablename__ = 'messages'
 
     id = Column(UUIDType(binary=False), primary_key=True, index=True, default=uuid.uuid4)
-    user_id: Column[uuid.UUID] = Column(ForeignKey('users.id'))  # type: ignore
-    room_id: Column[uuid.UUID] = Column(ForeignKey('rooms.id'))  # type: ignore
+    user_id: Column[uuid.UUID] = Column(ForeignKey('users.id'))  # type: ignore[assignment]
+    room_id: Column[uuid.UUID] = Column(ForeignKey('rooms.id'))  # type: ignore[assignment]
     message = Column(String(MAX_MESSAGE_LENGTH))
     creation_time = Column(DateTime)
     last_edited = Column(DateTime, nullable=True, default=None)
@@ -60,7 +59,7 @@ class Message(Base):
 
 
 class User(Base):
-    """A database model for users"""
+    """A database model for users."""
 
     __tablename__ = 'users'
 

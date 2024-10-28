@@ -1,4 +1,4 @@
-"""Implements API v1 routes"""
+"""Implements API v1 routes."""
 
 import logging
 

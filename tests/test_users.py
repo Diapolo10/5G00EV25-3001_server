@@ -1,4 +1,4 @@
-"""Unit tests for user routes"""
+"""Unit tests for user routes."""
 
 import uuid
 
@@ -10,8 +10,7 @@ from eguivalet_server.config import (
 
 
 def test_post_new_user(client):
-    """Tests creating new users"""
-
+    """Tests creating new users."""
     data = {
         'username': "Finn McCool",
         'email': "finn.mccool@jmail.com",
@@ -27,8 +26,7 @@ def test_post_new_user(client):
 
 
 def test_post_new_user_id_exists(client, test_users):
-    """Tests creating a new user with an existing ID"""
-
+    """Tests creating a new user with an existing ID."""
     data = {
         'id': str(test_users[0]),
         'username': "Finn McCool",
@@ -41,8 +39,7 @@ def test_post_new_user_id_exists(client, test_users):
 
 
 def test_post_login_user(client, test_users):
-    """Tests user login"""
-
+    """Tests user login."""
     data = {
         'id': str(test_users[0]),
         'username': "Lazar Diarmaid",
@@ -54,8 +51,7 @@ def test_post_login_user(client, test_users):
 
 
 def test_post_logout_user(client, test_users):
-    """Tests user logout"""
-
+    """Tests user logout."""
     data = {
         'id': str(test_users[0]),
         'username': "Lazar Diarmaid",
@@ -67,15 +63,13 @@ def test_post_logout_user(client, test_users):
 
 
 def test_get_user_by_id(client, test_users):
-    """Tests getting users by ID"""
-
+    """Tests getting users by ID."""
     response = client.get(f'{ROOT}/{test_users[0]}')
     assert response.status_code == status.HTTP_200_OK, response.text
 
 
 def test_update_user_by_id(client, test_users):
-    """Tests updating user information by ID"""
-
+    """Tests updating user information by ID."""
     data = {
         'id': str(test_users[0]),
         'username': "Lazar Diarmaid",
@@ -87,8 +81,7 @@ def test_update_user_by_id(client, test_users):
 
 
 def test_update_user_by_id_nonexistent(client):
-    """Tests updating user information by ID when the user does not exist"""
-
+    """Tests updating user information by ID when the user does not exist."""
     user_id = uuid.uuid4()
 
     data = {
@@ -102,8 +95,7 @@ def test_update_user_by_id_nonexistent(client):
 
 
 def test_delete_user_by_id(client, test_users):
-    """Tests deleting user by ID"""
-
+    """Tests deleting user by ID."""
     response = client.delete(f'{ROOT}/{test_users[0]}')
     assert response.status_code == status.HTTP_204_NO_CONTENT, response.text
 

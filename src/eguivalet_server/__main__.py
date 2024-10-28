@@ -1,13 +1,13 @@
-"""This script runs if the package is executed like a command"""
+"""Run if the package is executed like a command."""
 
 import logging
 
-import uvicorn  # type: ignore
+import uvicorn
 
 from eguivalet_server.config import (
     HOST,
-    PORT,
     LOG_CONFIG,
+    PORT,
 )
 
 uvicorn.run(
@@ -17,5 +17,5 @@ uvicorn.run(
     log_level=logging.INFO,
     reload=True,
     log_config=str(LOG_CONFIG),
-    use_colors=True
+    use_colors=True,
 )

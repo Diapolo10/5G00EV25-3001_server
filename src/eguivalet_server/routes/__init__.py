@@ -1,4 +1,4 @@
-"""Implements routes"""
+"""Implements routes."""
 
 import logging
 

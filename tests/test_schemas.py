@@ -1,1 +1,1 @@
-"""Unit tests for database schemas"""
+"""Unit tests for database schemas."""

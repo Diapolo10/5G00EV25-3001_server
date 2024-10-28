@@ -1,4 +1,4 @@
-"""Unit tests for chatrooms"""
+"""Unit tests for chatrooms."""
 
 import uuid
 
@@ -7,29 +7,28 @@ from fastapi import status
 from pydantic import ValidationError
 
 from eguivalet_server.config import (
-    ROOM_ROOT as ROOT,
-    MIN_MESSAGE_LENGTH,
     MAX_MESSAGE_LENGTH,
+    MIN_MESSAGE_LENGTH,
+)
+from eguivalet_server.config import (
+    ROOM_ROOT as ROOT,
 )
 
 
 def test_get_public_rooms(client, public_rooms):  # pylint: disable=W0613
-    """Tests getting public chatrooms"""
-
+    """Tests getting public chatrooms."""
     response = client.get(f'{ROOT}/')
     assert response.status_code == status.HTTP_200_OK, response.text
 
 
 def test_get_public_rooms_empty(client):
-    """Tests getting public chatrooms when there are none"""
-
+    """Tests getting public chatrooms when there are none."""
     response = client.get(f'{ROOT}/')
     assert response.status_code == status.HTTP_200_OK, response.text
 
 
 def test_post_new_room_public(client):
-    """Tests creating a new public room"""
-
+    """Tests creating a new public room."""
     data = {
         'id': str(uuid.uuid4()),
         'name': "Test Room",
@@ -45,8 +44,7 @@ def test_post_new_room_public(client):
 
 
 def test_post_new_room_private(client, test_users):
-    """Tests creating a new private room"""
-
+    """Tests creating a new private room."""
     data = {
         'id': str(uuid.uuid4()),
         'name': "Private Test Room",
@@ -63,8 +61,7 @@ def test_post_new_room_private(client, test_users):
 
 
 def test_post_new_room_private_no_owner(client):
-    """Tests error handling when creating an ownerless private room"""
-
+    """Tests error handling when creating an ownerless private room."""
     data = {
         'id': str(uuid.uuid4()),
         'name': "Private Test Room",
@@ -76,29 +73,25 @@ def test_post_new_room_private_no_owner(client):
 
 
 def test_get_room_by_id_public(client, public_rooms):
-    """Tests fetching a public room"""
-
+    """Tests fetching a public room."""
     response = client.get(f'{ROOT}/{public_rooms[0]}')
     assert response.status_code == status.HTTP_200_OK, response.text
 
 
 def test_get_room_by_id_private(client, private_rooms):
-    """Tests fetching a private room"""
-
+    """Tests fetching a private room."""
     response = client.get(f'{ROOT}/{private_rooms[0]}')
     assert response.status_code == status.HTTP_200_OK, response.text
 
 
 def test_get_room_by_id_nonexistent(client):
-    """Tests fetching a room that does not exist"""
-
+    """Tests fetching a room that does not exist."""
     response = client.get(f'{ROOT}/{uuid.uuid4()}')
     assert response.status_code == status.HTTP_404_NOT_FOUND, response.text
 
 
 def test_post_message_by_id(client, public_rooms, test_users):
-    """Tests sending a message to a public room"""
-
+    """Tests sending a message to a public room."""
     data = {
         'id': str(uuid.uuid4()),
         'user_id': str(test_users[0]),
@@ -114,8 +107,7 @@ def test_post_message_by_id(client, public_rooms, test_users):
 
 
 def test_post_message_by_id_message_too_short(client, public_rooms, test_users):
-    """Tests sending a message that is too short to a public room"""
-
+    """Tests sending a message that is too short to a public room."""
     data = {
         'user_id': str(test_users[0]),
         'message': "0" * (MIN_MESSAGE_LENGTH-1),
@@ -126,8 +118,7 @@ def test_post_message_by_id_message_too_short(client, public_rooms, test_users):
 
 
 def test_post_message_by_id_message_too_long(client, public_rooms, test_users):
-    """Tests sending a message that is too long to a public room"""
-
+    """Tests sending a message that is too long to a public room."""
     data = {
         'user_id': str(test_users[0]),
         'message': "0" * (MAX_MESSAGE_LENGTH+1),
@@ -138,8 +129,7 @@ def test_post_message_by_id_message_too_long(client, public_rooms, test_users):
 
 
 def test_delete_room_by_id_public(client, public_rooms):
-    """Tests deleting a public room"""
-
+    """Tests deleting a public room."""
     # NOTE: We need to check admin permissions first
 
     response = client.delete(f'{ROOT}/{public_rooms[0]}')
@@ -150,8 +140,7 @@ def test_delete_room_by_id_public(client, public_rooms):
 
 
 def test_delete_room_by_id_private(client, private_rooms):
-    """Tests deleting private rooms"""
-
+    """Tests deleting private rooms."""
     # NOTE: We need to check the room owner matches the
     # currently logged in user, or an administrator
 
@@ -163,16 +152,14 @@ def test_delete_room_by_id_private(client, private_rooms):
 
 
 def test_get_messages_empty(client, public_rooms):
-    """Tests fetching all messages from a public room"""
-
+    """Tests fetching all messages from a public room."""
     response = client.get(f'{ROOT}/{public_rooms[0]}/messages')
     assert response.status_code == status.HTTP_200_OK, response.text
     assert len(response.json()) == 0
 
 
 def test_get_messages(client, public_rooms, test_users):
-    """Tests fetching all messages from a public room"""
-
+    """Tests fetching all messages from a public room."""
     messages = [
         "Hasta la vista.",
         "What's up, doc?",
@@ -194,8 +181,7 @@ def test_get_messages(client, public_rooms, test_users):
 
 
 def test_get_message_by_id(client, public_rooms, test_users):
-    """Tests fetching a message from a public room"""
-
+    """Tests fetching a message from a public room."""
     message_id = str(uuid.uuid4())
 
     data = {
@@ -214,8 +200,7 @@ def test_get_message_by_id(client, public_rooms, test_users):
 
 
 def test_put_message_by_id(client, public_rooms, test_users):
-    """Tests editing a message from a public room"""
-
+    """Tests editing a message from a public room."""
     message_id = str(uuid.uuid4())
 
     data = {
@@ -244,8 +229,7 @@ def test_put_message_by_id(client, public_rooms, test_users):
 
 
 def test_put_message_by_id_nonexistent(client, public_rooms, test_users):
-    """Tests editing a message that doesn't exist from a public room"""
-
+    """Tests editing a message that doesn't exist from a public room."""
     message_id = str(uuid.uuid4())
 
     edit_data = {
@@ -259,8 +243,7 @@ def test_put_message_by_id_nonexistent(client, public_rooms, test_users):
 
 
 def test_delete_message_by_id(client, public_rooms, test_users):
-    """Tests deleting a message from a public room"""
-
+    """Tests deleting a message from a public room."""
     message_id = str(uuid.uuid4())
 
     data = {

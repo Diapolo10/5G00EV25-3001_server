@@ -1,11 +1,11 @@
-"""Launches the messaging service"""
+"""Launches the messaging service."""
 
 import logging
 import logging.config
 import sys
 
 import tomli
-import uvicorn  # type: ignore
+import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
@@ -13,8 +13,8 @@ from fastapi.openapi.utils import get_openapi
 from eguivalet_server import models
 from eguivalet_server.config import (
     HOST,
-    PORT,
     LOG_CONFIG,
+    PORT,
     PYPROJECT_TOML,
 )
 from eguivalet_server.database import engine
@@ -51,9 +51,8 @@ app.add_middleware(
 app.include_router(router)
 
 
-def custom_openapi():
-    """Applies code examples to Redoc"""
-
+def custom_openapi() -> dict[str, object]:
+    """Apply code examples to Redoc."""
     if app.openapi_schema:
         return app.openapi_schema
 
@@ -63,7 +62,7 @@ def custom_openapi():
         title="Messaging Service Server",
         version=poetry['version'],
         description=poetry['description'],
-        routes=app.routes
+        routes=app.routes,
     )
     openapi_schema['info']['x-logo'] = {
         'url': 'https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png',
@@ -74,7 +73,7 @@ def custom_openapi():
     return app.openapi_schema
 
 
-app.openapi = custom_openapi  # type: ignore
+app.openapi = custom_openapi  # type: ignore[method-assign]
 
 if __name__ == '__main__':
     uvicorn.run(
@@ -84,5 +83,5 @@ if __name__ == '__main__':
         reload=True,
         log_level=logging.INFO,
         log_config=str(LOG_CONFIG),
-        use_colors=True
+        use_colors=True,
     )

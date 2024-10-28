@@ -1,21 +1,20 @@
-"""Contains implementations for Pydantic models used in the API"""
+"""Contains implementations for Pydantic models used in the API."""
 
-# pylint: disable=missing-class-docstring
+from __future__ import annotations
 
 import logging
 from datetime import datetime
-from typing import Optional
 from uuid import UUID, uuid4
 
 from pydantic import BaseModel, Field, SecretStr, validator
 
-from eguivalet_server.config import AccessLevel, MAX_MESSAGE_LENGTH, MIN_MESSAGE_LENGTH
+from eguivalet_server.config import MAX_MESSAGE_LENGTH, MIN_MESSAGE_LENGTH, AccessLevel
 
 logger = logging.getLogger(__name__)
 
 
 class HelloWorld(BaseModel):
-    """Hello, world!"""
+    """Hello, world."""
 
     hello: str
 
@@ -23,7 +22,7 @@ class HelloWorld(BaseModel):
 # User models
 
 class UserBase(BaseModel):
-    """Base user model"""
+    """Base user model."""
 
     id: UUID = Field(default_factory=uuid4)
     username: str
@@ -31,24 +30,26 @@ class UserBase(BaseModel):
 
 
 class UserCreate(UserBase):
-    """Used when creating a new user"""
+    """Used when creating a new user."""
 
     password: SecretStr
 
 
 class User(UserBase):
-    """User of the system"""
+    """User of the system."""
 
     global_access_level: AccessLevel = AccessLevel.BASIC
 
     class Config:
+        """Configure the User schema."""
+
         orm_mode = True
 
 
 # Chat models
 
 class Message(BaseModel):
-    """Message sent in a chatroom"""
+    """Message sent in a chatroom."""
 
     id: UUID = Field(default_factory=uuid4)
     user_id: UUID
@@ -56,50 +57,53 @@ class Message(BaseModel):
     creation_time: datetime = Field(default_factory=datetime.now)
 
     class Config:
+        """Configure the message schema."""
+
         orm_mode = True
 
     @validator('message')
-    def message_length_acceptable(cls, value):  # pylint: disable=E0213
-        """Verify that the message length makes sense"""
-
-        if not MIN_MESSAGE_LENGTH <= len(value):
-            raise ValueError("Message is too short")
+    def message_length_acceptable(self, value: str) -> str:
+        """Verify that the message length makes sense."""
+        if not len(value) >= MIN_MESSAGE_LENGTH:
+            msg = "Message is too short"
+            raise ValueError(msg)
         if not len(value) <= MAX_MESSAGE_LENGTH:
-            raise ValueError("Message is too long")
+            msg = "Message is too long"
+            raise ValueError(msg)
         return value
 
     @validator('user_id')
-    def user_id_exists(cls, value):  # pylint: disable=E0213
-        """Verify that the given user exists (just in case)"""
-
+    def user_id_exists(self, value: UUID) -> UUID:
+        """Verify that the given user exists (just in case)."""
         return value  # NOTE: Implement if needed
 
 
 class EncryptedMessage(Message):
-    """Encrypted message sent in a chatroom"""
+    """Encrypted message sent in a chatroom."""
 
 
 class Room(BaseModel):
-    """Chatroom"""
+    """Chatroom."""
 
     id: UUID = Field(default_factory=uuid4)
     name: str
     public: bool = True
-    owner: Optional[UUID] = None
+    owner: UUID | None = None
 
     class Config:
+        """Configure the room schema."""
+
         orm_mode = True
 
     @validator('owner')
-    def owner_exists(cls, value):  # pylint: disable=E0213
-        """Verify that the room owner exists"""
-
+    def owner_exists(self, value: UUID | None) -> UUID | None:
+        """Verify that the room owner exists."""
         return value  # NOTE: Add validation
 
     @validator('owner')
-    def public_if_no_owner(cls, value, values):  # pylint: disable=E0213
-        """Verify that the server is public if no owner is set"""
-
+    def public_if_no_owner(self, value: UUID | None, values: dict[str, object]) -> UUID | None:
+        """Verify that the server is public if no owner is set."""
         if value is None and values['public'] is False:
-            raise ValueError("Private rooms must have an owner")
+            msg = "Private rooms must have an owner"
+            raise ValueError(msg)
         return value
