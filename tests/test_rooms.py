@@ -59,6 +59,7 @@ def test_post_new_room_private(client, test_users):
     response = client.post(f'{ROOT}/', json=data)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.text
 
+
 @pytest.mark.xfail
 def test_post_new_room_private_no_owner(client):
     """Tests error handling when creating an ownerless private room."""
@@ -110,7 +111,7 @@ def test_post_message_by_id_message_too_short(client, public_rooms, test_users):
     """Tests sending a message that is too short to a public room."""
     data = {
         'user_id': str(test_users[0]),
-        'message': "0" * (MIN_MESSAGE_LENGTH-1),
+        'message': "0" * (MIN_MESSAGE_LENGTH - 1),
     }
 
     response = client.post(f'{ROOT}/{public_rooms[0]}', json=data)
@@ -121,7 +122,7 @@ def test_post_message_by_id_message_too_long(client, public_rooms, test_users):
     """Tests sending a message that is too long to a public room."""
     data = {
         'user_id': str(test_users[0]),
-        'message': "0" * (MAX_MESSAGE_LENGTH+1),
+        'message': "0" * (MAX_MESSAGE_LENGTH + 1),
     }
 
     response = client.post(f'{ROOT}/{public_rooms[0]}', json=data)

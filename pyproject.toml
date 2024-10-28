@@ -220,6 +220,7 @@ lint.ignore = [
 ]
 line-length = 120
 show-fixes = true
+preview = true
 src = ["src",]
 target-version = "py39"
 
