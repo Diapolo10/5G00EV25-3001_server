@@ -80,7 +80,7 @@ classifiers = [
 
 
 [tool.poetry.dependencies]
-python = "^3.9.0"
+python = "^3.10.0"
 fastapi = {version=">=0.85.1,<0.116.0", extras=["all",]}
 uvicorn = ">=0.18.3,<0.33.0"
 SQLAlchemy = ">=1.4.42,<3.0.0"
@@ -222,7 +222,7 @@ line-length = 120
 show-fixes = true
 preview = true
 src = ["src",]
-target-version = "py39"
+target-version = "py310"
 
 
 [tool.ruff.lint.flake8-copyright]
@@ -260,12 +260,11 @@ ban-relative-imports = "all"
 [tool.tox]
 legacy_tox_ini = """
 [tox]
-envlist = py39, py310, py311, py312
+envlist = py310, py311, py312
 skip_missing_interpreters = true
 
 [gh-actions]
 python =
-    3.9: py39
     3.10: py310
     3.11: py311
     3.12: py312

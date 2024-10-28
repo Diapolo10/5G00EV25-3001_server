@@ -167,7 +167,7 @@ def test_get_messages(client, public_rooms, test_users):
         "Eunie is as Eunie does.",
     ]
 
-    for user, message in zip(test_users, messages):
+    for user, message in zip(test_users, messages, strict=False):
         data = {
             'user_id': str(user),
             'message': message,
