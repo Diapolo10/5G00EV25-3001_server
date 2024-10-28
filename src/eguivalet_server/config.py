@@ -7,7 +7,7 @@ from pathlib import Path
 # Common
 
 PROJECT_DIR = Path(__file__).parent
-ROOT_DIR = PROJECT_DIR.parent
+ROOT_DIR = PROJECT_DIR.parent.parent
 DOCS_DIR = ROOT_DIR / 'docs'
 CODE_EXAMPLES = DOCS_DIR / 'example_code'
 

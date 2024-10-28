@@ -62,7 +62,7 @@ class Message(BaseModel):
         orm_mode = True
 
     @validator('message')
-    def message_length_acceptable(self, value: str) -> str:
+    def message_length_acceptable(cls: type[Message], value: str) -> str:  # type: ignore[misc]  # noqa: N805
         """Verify that the message length makes sense."""
         if not len(value) >= MIN_MESSAGE_LENGTH:
             msg = "Message is too short"
@@ -73,7 +73,7 @@ class Message(BaseModel):
         return value
 
     @validator('user_id')
-    def user_id_exists(self, value: UUID) -> UUID:
+    def user_id_exists(cls: type[Message], value: UUID) -> UUID:  # type: ignore[misc] # noqa: N805
         """Verify that the given user exists (just in case)."""
         return value  # NOTE: Implement if needed
 
@@ -96,12 +96,12 @@ class Room(BaseModel):
         orm_mode = True
 
     @validator('owner')
-    def owner_exists(self, value: UUID | None) -> UUID | None:
+    def owner_exists(cls: type[Room], value: UUID | None) -> UUID | None:  # type: ignore[misc] # noqa: N805
         """Verify that the room owner exists."""
         return value  # NOTE: Add validation
 
     @validator('owner')
-    def public_if_no_owner(self, value: UUID | None, values: dict[str, object]) -> UUID | None:
+    def public_if_no_owner(cls: type[Room], value: UUID | None, values: dict[str, object]) -> UUID | None:  # type: ignore[misc] # noqa: N805
         """Verify that the server is public if no owner is set."""
         if value is None and values['public'] is False:
             msg = "Private rooms must have an owner"
