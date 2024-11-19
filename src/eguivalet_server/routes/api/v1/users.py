@@ -10,7 +10,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session  # noqa: TCH002
 
 from eguivalet_server import crud
-from eguivalet_server.database import get_db  # noqa: TCH001
+from eguivalet_server.database import get_db
 from eguivalet_server.schemas import User, UserCreate
 
 if TYPE_CHECKING:
