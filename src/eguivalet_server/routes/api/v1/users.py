@@ -4,10 +4,10 @@ from __future__ import annotations
 
 import logging
 from typing import TYPE_CHECKING, Annotated
-from uuid import UUID  # noqa: TCH003
+from uuid import UUID  # noqa: TC003
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session  # noqa: TCH002
+from sqlalchemy.orm import Session  # noqa: TC002
 
 from eguivalet_server import crud
 from eguivalet_server.database import get_db
