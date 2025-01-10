@@ -35,37 +35,43 @@ if "pytest" not in sys.modules:
 
 app = FastAPI(
     swagger_ui_parameters={
-        'filter': True,
-        'syntaxHighlight.theme': 'arta',
+        "filter": True,
+        "syntaxHighlight.theme": "arta",
     },
 )
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['*'],
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=['GET', 'POST', 'PUT', 'DELETE'],
-    allow_headers=['*'],
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["*"],
 )
 
 app.include_router(router)
 
 
 def custom_openapi() -> dict[str, object]:
-    """Apply code examples to Redoc."""
+    """
+    Apply code examples to Redoc.
+
+    Returns:
+        Updated OpenAPI schema.
+
+    """
     if app.openapi_schema:
         return app.openapi_schema
 
-    poetry = project_metadata['tool']['poetry']
+    poetry = project_metadata["tool"]["poetry"]
 
     openapi_schema = get_openapi(
         title="Messaging Service Server",
-        version=poetry['version'],
-        description=poetry['description'],
+        version=poetry["version"],
+        description=poetry["description"],
         routes=app.routes,
     )
-    openapi_schema['info']['x-logo'] = {
-        'url': 'https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png',
+    openapi_schema["info"]["x-logo"] = {
+        "url": "https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png",
     }
 
     app.openapi_schema = add_examples(openapi_schema)
@@ -75,9 +81,9 @@ def custom_openapi() -> dict[str, object]:
 
 app.openapi = custom_openapi  # type: ignore[method-assign]
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     uvicorn.run(
-        'main:app',
+        "main:app",
         host=HOST,
         port=PORT,
         reload=True,

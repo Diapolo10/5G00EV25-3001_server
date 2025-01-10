@@ -14,19 +14,27 @@ from eguivalet_server.database import get_db
 from eguivalet_server.schemas import User, UserCreate
 
 if TYPE_CHECKING:
-
     from eguivalet_server.models import User as UserModel
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter(
-    prefix='/users',
+    prefix="/users",
 )
 
 
-@router.post('/', status_code=status.HTTP_201_CREATED, response_model=User)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=User)
 async def post_new_user(user: UserCreate, db: Annotated[Session, Depends(get_db)]) -> UserModel:
-    """Create a new user."""
+    """
+    Create a new user.
+
+    Raises:
+        HTTPException: If the user ID or email exist.
+
+    Returns:
+        User object.
+
+    """
     logger.info("POST new user")
 
     if crud.read_user(db, user_id=user.id) is not None:
@@ -36,23 +44,44 @@ async def post_new_user(user: UserCreate, db: Annotated[Session, Depends(get_db)
     return crud.create_user(db, user=user)
 
 
-@router.post('/login', status_code=status.HTTP_200_OK, response_model=User)
+@router.post("/login", status_code=status.HTTP_200_OK, response_model=User)
 async def post_login_user(user: User) -> User:
-    """Log the user in."""
+    """
+    Log the user in.
+
+    Returns:
+        User object.
+
+    """
     logger.info("POST login user %s", user.username)
     return user
 
 
-@router.post('/logout', status_code=status.HTTP_200_OK, response_model=User)
+@router.post("/logout", status_code=status.HTTP_200_OK, response_model=User)
 async def post_logout_user(user: User) -> User:
-    """Log the user out."""
+    """
+    Log the user out.
+
+    Returns:
+        User object.
+
+    """
     logger.info("POST logout user %s", user.username)
     return user
 
 
-@router.get('/{user_id}', status_code=status.HTTP_200_OK, response_model=User)
+@router.get("/{user_id}", status_code=status.HTTP_200_OK, response_model=User)
 async def get_user_by_id(user_id: UUID, db: Annotated[Session, Depends(get_db)]) -> UserModel:
-    """Get user by user ID."""
+    """
+    Get user by user ID.
+
+    Raises:
+        HTTPException: If user does not exist.
+
+    Returns:
+        User object.
+
+    """
     logger.info("GET user %s", user_id)
 
     db_user = crud.read_user(db, user_id=user_id)
@@ -61,9 +90,18 @@ async def get_user_by_id(user_id: UUID, db: Annotated[Session, Depends(get_db)])
     return db_user
 
 
-@router.put('/{user_id}', status_code=status.HTTP_200_OK, response_model=User)
+@router.put("/{user_id}", status_code=status.HTTP_200_OK, response_model=User)
 async def update_user_by_id(user_id: UUID, user: User, db: Annotated[Session, Depends(get_db)]) -> UserModel:
-    """Edit user by user ID."""
+    """
+    Edit user by user ID.
+
+    Raises:
+        HTTPException: If the user does not exist.
+
+    Returns:
+        The updated user object.
+
+    """
     logger.info("PUT user %s", user_id)
 
     db_user = crud.update_user(db, user=user)
@@ -72,7 +110,7 @@ async def update_user_by_id(user_id: UUID, user: User, db: Annotated[Session, De
     return db_user
 
 
-@router.delete('/{user_id}', status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_user_by_id(user_id: UUID, db: Annotated[Session, Depends(get_db)]) -> None:
     """Delete user by user ID."""
     logger.info("DELETE user %s", user_id)

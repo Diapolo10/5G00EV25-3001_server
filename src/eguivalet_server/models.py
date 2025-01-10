@@ -19,10 +19,10 @@ from eguivalet_server.database import Base
 
 
 users_in_rooms_table = Table(
-    'users_in_rooms',
+    "users_in_rooms",
     Base.metadata,
-    Column('user_id', ForeignKey('users.id'), primary_key=True),
-    Column('room_id', ForeignKey('rooms.id'), primary_key=True),
+    Column("user_id", ForeignKey("users.id"), primary_key=True),
+    Column("room_id", ForeignKey("rooms.id"), primary_key=True),
 )
 
 
@@ -32,36 +32,36 @@ users_in_rooms_table = Table(
 class Room(Base):
     """A database model for rooms."""
 
-    __tablename__ = 'rooms'
+    __tablename__ = "rooms"
 
     id = Column(UUIDType(binary=False), primary_key=True, index=True, default=uuid.uuid4)
     name = Column(String(MAX_MESSAGE_LENGTH))
     public = Column(Boolean, default=True)
     owner = Column(UUIDType(binary=False), nullable=True, default=None)
 
-    messages = relationship("Message", back_populates='room')
-    users = relationship("User", secondary=users_in_rooms_table, backref='chatrooms')
+    messages = relationship("Message", back_populates="room")
+    users = relationship("User", secondary=users_in_rooms_table, backref="chatrooms")
 
 
 class Message(Base):
     """A database model for messages."""
 
-    __tablename__ = 'messages'
+    __tablename__ = "messages"
 
     id = Column(UUIDType(binary=False), primary_key=True, index=True, default=uuid.uuid4)
-    user_id: Column[uuid.UUID] = Column(ForeignKey('users.id'))  # type: ignore[assignment]
-    room_id: Column[uuid.UUID] = Column(ForeignKey('rooms.id'))  # type: ignore[assignment]
+    user_id: Column[uuid.UUID] = Column(ForeignKey("users.id"))  # type: ignore[assignment]
+    room_id: Column[uuid.UUID] = Column(ForeignKey("rooms.id"))  # type: ignore[assignment]
     message = Column(String(MAX_MESSAGE_LENGTH))
     creation_time = Column(DateTime)
     last_edited = Column(DateTime, nullable=True, default=None)
 
-    room = relationship("Room", back_populates='messages')
+    room = relationship("Room", back_populates="messages")
 
 
 class User(Base):
     """A database model for users."""
 
-    __tablename__ = 'users'
+    __tablename__ = "users"
 
     id = Column(UUIDType(binary=False), primary_key=True, index=True, default=uuid.uuid4, nullable=False)
     username = Column(String(MAX_USERNAME_LENGTH))

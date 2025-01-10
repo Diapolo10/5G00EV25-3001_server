@@ -11,7 +11,7 @@ from eguivalet_server.config import (
 )
 
 uvicorn.run(
-    'eguivalet_server.main:app',
+    "eguivalet_server.main:app",
     host=HOST,
     port=PORT,
     log_level=logging.INFO,

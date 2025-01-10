@@ -8,12 +8,12 @@ from pathlib import Path
 
 PROJECT_DIR = Path(__file__).parent
 ROOT_DIR = PROJECT_DIR.parent.parent
-DOCS_DIR = ROOT_DIR / 'docs'
-CODE_EXAMPLES = DOCS_DIR / 'example_code'
+DOCS_DIR = ROOT_DIR / "docs"
+CODE_EXAMPLES = DOCS_DIR / "example_code"
 
-LOG_CONFIG = ROOT_DIR / 'logging.conf'
-PYPROJECT_TOML = ROOT_DIR / 'pyproject.toml'
-ROBOTS_TXT = PROJECT_DIR / 'routes' / 'robots.txt'
+LOG_CONFIG = ROOT_DIR / "logging.conf"
+PYPROJECT_TOML = ROOT_DIR / "pyproject.toml"
+ROBOTS_TXT = PROJECT_DIR / "routes" / "robots.txt"
 
 
 # Chat
@@ -29,8 +29,8 @@ MAX_PASSWORD_HASH_LENGTH = 128
 
 # Database
 
-SQLALCHEMY_DATABASE_URL = 'sqlite:///./server.db'
-SQLALCHEMY_TEST_DATABASE_URL = 'sqlite:///./tests/test.db'
+SQLALCHEMY_DATABASE_URL = "sqlite:///./server.db"
+SQLALCHEMY_TEST_DATABASE_URL = "sqlite:///./tests/test.db"
 # SQLALCHEMY_DATABASE_USERNAME = 'user'  # noqa: ERA001
 # SQLALCHEMY_DATABASE_PASSWORD = 'password'  # If used, this should be an environmental variable  # noqa: ERA001
 # SQLALCHEMY_DATABASE_URL = (  # noqa: ERA001, RUF100
@@ -41,6 +41,7 @@ SQLALCHEMY_TEST_DATABASE_URL = 'sqlite:///./tests/test.db'
 
 
 # Enums
+
 
 class AccessLevel(IntEnum):
     """Contains different access levels for users."""
@@ -54,14 +55,14 @@ class AccessLevel(IntEnum):
 
 # Running
 
-HOST = '127.0.0.1'
+HOST = "127.0.0.1"
 PORT = 11037
-URL = f'http://{HOST}:{PORT}'
+URL = f"http://{HOST}:{PORT}"
 
 
 # Regular expressions
 
-ANY_REGEX = re.compile(r'^.*$')
+ANY_REGEX = re.compile(r"^.*$")
 SEM_VER_REGEX = re.compile(
     r"""
         (0|[1-9][0-9]*)\.  # Major
@@ -77,14 +78,14 @@ SEM_VER_REGEX = re.compile(
 
 # Unit tests
 
-USER_ROOT = '/api/v1/users'
-ROOM_ROOT = '/api/v1/rooms'
+USER_ROOT = "/api/v1/users"
+ROOM_ROOT = "/api/v1/rooms"
 
 
 # OpenAPI
 
 LABEL_LANG_MAPPING = {
-    'js': 'JavaScript',
-    'rust': 'Rust',
-    'ts': 'TypeScript',
+    "js": "JavaScript",
+    "rust": "Rust",
+    "ts": "TypeScript",
 }

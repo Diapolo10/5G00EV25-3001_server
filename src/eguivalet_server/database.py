@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
     connect_args={
-        'check_same_thread': False,
+        "check_same_thread": False,
     },
 )
 
@@ -28,7 +28,13 @@ Base = declarative_base()
 
 
 def get_db() -> Generator[Session, None, None]:
-    """Yield and auto-closes a database session."""
+    """
+    Yield and auto-close a database session.
+
+    Yields:
+        A database session.
+
+    """
     db_session = SessionLocal()
     try:
         yield db_session

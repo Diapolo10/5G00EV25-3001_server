@@ -20,13 +20,19 @@ from eguivalet_server.database import Base, get_db
 from eguivalet_server.main import app
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def db_engine():
-    """Create a test database and yields a database engine."""
+    """
+    Create a test database and yields a database engine.
+
+    Returns:
+        A database engine.
+
+    """
     engine = create_engine(
         SQLALCHEMY_TEST_DATABASE_URL,
         connect_args={
-            'check_same_thread': False,
+            "check_same_thread": False,
         },
     )
 
@@ -39,7 +45,13 @@ def db_engine():
 
 @pytest.fixture
 def db_session(db_engine):
-    """Create a connection to the test database and handles cleanup."""
+    """
+    Create a connection to the test database and handles cleanup.
+
+    Yields:
+        A database session.
+
+    """
     connection = db_engine.connect()
 
     # Begin a non-ORM transaction
@@ -58,7 +70,9 @@ def client(db_session) -> Generator[TestClient, None, None]:
     """
     Override the normal database access with test database.
 
-    Yields a configured test client.
+    Yields:
+         Configured test client.
+
     """
     app.dependency_overrides[get_db] = lambda: db_session
 
@@ -68,7 +82,13 @@ def client(db_session) -> Generator[TestClient, None, None]:
 
 @pytest.fixture
 def public_rooms(db_session) -> list[uuid.UUID]:
-    """Add some example public rooms to the database."""
+    """
+    Add some example public rooms to the database.
+
+    Returns:
+        A list of room UUIDs.
+
+    """
     rooms: list[uuid.UUID] = [
         crud.create_room(
             db_session,
@@ -82,7 +102,13 @@ def public_rooms(db_session) -> list[uuid.UUID]:
 
 @pytest.fixture
 def test_users(db_session) -> list[uuid.UUID]:
-    """Add some example users to the database."""
+    """
+    Add some example users to the database.
+
+    Returns:
+        A list of user UUIDs.
+
+    """
     # NOTE: Maybe randomise in the future
     users: list[uuid.UUID] = [
         crud.create_user(
@@ -101,7 +127,13 @@ def test_users(db_session) -> list[uuid.UUID]:
 
 @pytest.fixture
 def private_rooms(db_session, test_users) -> list[uuid.UUID]:
-    """Add some example private rooms to the database."""
+    """
+    Add some example private rooms to the database.
+
+    Returns:
+        A list of private room UUIDs.
+
+    """
     rooms: list[uuid.UUID] = [
         crud.create_room(
             db_session,

@@ -9,7 +9,7 @@ from eguivalet_server.routes.api.v1 import rooms, users
 logger = logging.getLogger(__name__)
 
 router = APIRouter(
-    prefix='/v1',
+    prefix="/v1",
 )
 
 router.include_router(rooms.router)

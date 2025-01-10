@@ -13,17 +13,29 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
-@router.get('/', status_code=status.HTTP_200_OK, response_model=HelloWorld)
+@router.get("/", status_code=status.HTTP_200_OK, response_model=HelloWorld)
 async def get_root() -> dict[str, str]:
-    """Route."""
+    """
+    Define example route.
+
+    Returns:
+        A Hello World JSON response.
+
+    """
     logger.info("GET Hello World example")
     return {
-        'hello': 'Hello, world!',
+        "hello": "Hello, world!",
     }
 
 
-@router.get('/robots.txt', status_code=status.HTTP_200_OK, response_class=PlainTextResponse)
+@router.get("/robots.txt", status_code=status.HTTP_200_OK, response_class=PlainTextResponse)
 async def get_robots_txt() -> str:
-    """Give the contents of robots.txt."""
+    """
+    Give the contents of robots.txt.
+
+    Returns:
+        A string containing the contents of the robots.txt file.
+
+    """
     logger.info("GET robots.txt")
     return ROBOTS_TXT.read_text()
