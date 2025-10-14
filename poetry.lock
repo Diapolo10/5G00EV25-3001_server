@@ -372,14 +372,14 @@ test = ["pytest (>=6)"]
 
 [[package]]
 name = "fastapi"
-version = "0.118.2"
+version = "0.119.0"
 description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "fastapi-0.118.2-py3-none-any.whl", hash = "sha256:d1f842612e6a305f95abe784b7f8d3215477742e7c67a16fccd20bd79db68150"},
-    {file = "fastapi-0.118.2.tar.gz", hash = "sha256:d5388dbe76d97cb6ccd2c93b4dd981608062ebf6335280edfa9a11af82443e18"},
+    {file = "fastapi-0.119.0-py3-none-any.whl", hash = "sha256:90a2e49ed19515320abb864df570dd766be0662c5d577688f1600170f7f73cf2"},
+    {file = "fastapi-0.119.0.tar.gz", hash = "sha256:451082403a2c1f0b99c6bd57c09110ed5463856804c8078d38e5a1f1035dbbb7"},
 ]
 
 [package.dependencies]
@@ -1956,21 +1956,21 @@ virtualenv = ">=20.34"
 
 [[package]]
 name = "tox-gh-actions"
-version = "3.3.0"
+version = "3.4.0"
 description = "Seamless integration of tox into GitHub Actions"
 optional = false
 python-versions = ">=3.7"
 groups = ["tests"]
 files = [
-    {file = "tox_gh_actions-3.3.0-py2.py3-none-any.whl", hash = "sha256:0e1f9db7a775d04b6d94ab801c60d2d482929a934136262969791eb0ccac65a4"},
-    {file = "tox_gh_actions-3.3.0.tar.gz", hash = "sha256:6933775dd7ab98649de5134283277e604fecfd4eb44bf31150c1c6ba2b1092ef"},
+    {file = "tox_gh_actions-3.4.0-py3-none-any.whl", hash = "sha256:31abb90827472181c17ed07385493e4614fd8c03955e43fef42c06a366712850"},
+    {file = "tox_gh_actions-3.4.0.tar.gz", hash = "sha256:76e80610fe5cda2f57af0ef45537d8f86c36d0bb8823feb20f85d30f4a7600ce"},
 ]
 
 [package.dependencies]
 tox = ">=4,<5"
 
 [package.extras]
-testing = ["black ; platform_python_implementation == \"CPython\"", "devpi-process", "flake8 (>=6,<7) ; python_version >= \"3.8\"", "mypy ; platform_python_implementation == \"CPython\"", "pytest (>=7)", "pytest-cov (>=4)", "pytest-mock (>=3)", "pytest-randomly (>=3)"]
+testing = ["devpi-process", "mypy ; platform_python_implementation == \"CPython\"", "pre-commit", "pytest (>=7)", "pytest-cov (>=4)", "pytest-mock (>=3)", "pytest-randomly (>=3)"]
 
 [[package]]
 name = "typer"
@@ -2392,4 +2392,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10.0"
-content-hash = "c5df09e0fa30c9710fef3ee85406420e3b5e1a264cafa8d35dd48fdd7738641b"
+content-hash = "2fe203089573b1c7b4de1d18d89d00831be6d9a0b652d130521a21f9dd245924"
