@@ -44,11 +44,11 @@ async def post_new_room(room: Room, db: Annotated[Session, Depends(get_db)]) -> 
     """
     Create a new room.
 
-    Raises:
-        HTTPException: If the room already exists.
-
     Returns:
         Created room object.
+
+    Raises:
+        HTTPException: If the room already exists.
 
     """
     logger.info("POST new chatroom")
@@ -64,11 +64,11 @@ async def get_room_by_id(room_id: UUID, db: Annotated[Session, Depends(get_db)])
     """
     Fetch the specified room.
 
-    Raises:
-        HTTPException: If the room does not exist.
-
     Returns:
         Room object.
+
+    Raises:
+        HTTPException: If the room does not exist.
 
     """
     logger.info("GET chatroom by ID: %s", room_id)
@@ -85,11 +85,11 @@ async def post_message_by_id(room_id: UUID, message: Message, db: Annotated[Sess
     """
     Send a message to the room.
 
-    Raises:
-        HTTPException: If the message ID already exists in the room.
-
     Returns:
         Created message object.
+
+    Raises:
+        HTTPException: If the message ID already exists in the room.
 
     """
     logger.info("POST to chatroom ID: %s", room_id)
@@ -130,11 +130,11 @@ async def get_message_by_id(room_id: UUID, message_id: UUID, db: Annotated[Sessi
     """
     Fetch the specified message.
 
-    Raises:
-        HTTPException: If the specified message cannot be found.
-
     Returns:
         Message object.
+
+    Raises:
+        HTTPException: If the specified message cannot be found.
 
     """
     logger.info("GET message by ID: %s", message_id)
@@ -152,11 +152,11 @@ async def put_message_by_id(
     """
     Edit the specified message.
 
-    Raises:
-        HTTPException: If the message is not found.
-
     Returns:
         Updated message object.
+
+    Raises:
+        HTTPException: If the message is not found.
 
     """
     logger.info("PUT message by ID: %s", message_id)
