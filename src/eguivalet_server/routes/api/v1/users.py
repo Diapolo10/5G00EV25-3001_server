@@ -28,11 +28,11 @@ async def post_new_user(user: UserCreate, db: Annotated[Session, Depends(get_db)
     """
     Create a new user.
 
-    Raises:
-        HTTPException: If the user ID or email exist.
-
     Returns:
         User object.
+
+    Raises:
+        HTTPException: If the user ID or email exist.
 
     """
     logger.info("POST new user")
@@ -75,11 +75,11 @@ async def get_user_by_id(user_id: UUID, db: Annotated[Session, Depends(get_db)])
     """
     Get user by user ID.
 
-    Raises:
-        HTTPException: If user does not exist.
-
     Returns:
         User object.
+
+    Raises:
+        HTTPException: If user does not exist.
 
     """
     logger.info("GET user %s", user_id)
@@ -95,11 +95,11 @@ async def update_user_by_id(user_id: UUID, user: User, db: Annotated[Session, De
     """
     Edit user by user ID.
 
-    Raises:
-        HTTPException: If the user does not exist.
-
     Returns:
         The updated user object.
+
+    Raises:
+        HTTPException: If the user does not exist.
 
     """
     logger.info("PUT user %s", user_id)

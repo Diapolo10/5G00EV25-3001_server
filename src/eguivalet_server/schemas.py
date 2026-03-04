@@ -68,11 +68,11 @@ class Message(BaseModel):
         """
         Verify that the message length makes sense.
 
-        Raises:
-            ValueError: If the given value is not valid.
-
         Returns:
             The given value if valid.
+
+        Raises:
+            ValueError: If the given value is not valid.
 
         """
         if not len(value) >= MIN_MESSAGE_LENGTH:
@@ -128,11 +128,11 @@ class Room(BaseModel):
         """
         Verify that the server is public if no owner is set.
 
-        Raises:
-            ValueError: If the room is private and lacks an owner.
-
         Returns:
             Room UUID if validation was successful.
+
+        Raises:
+            ValueError: If the room is private and lacks an owner.
 
         """
         if value is None and values["public"] is False:
