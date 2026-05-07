@@ -91,7 +91,7 @@ tomli = "^2.0.1"
 
 
 [tool.poetry.group.dev.dependencies]
-mypy = "^1.13"
+mypy = ">=1.13,<3.0"
 sqlalchemy-stubs = "^0.4.0"
 types-sqlalchemy-utils = "^1.1.0"
 
