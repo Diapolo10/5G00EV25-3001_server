@@ -153,12 +153,12 @@ testpaths = [
 [tool.ruff]
 lint.select = ["ALL"]
 lint.ignore = [
-    "CPY001",  # Copyright notice
-    "D203",    # One blank line before class docstring
-    "D212",    # Multi-line summary first line
-    "PLR0913", # Too many arguments
-    "Q000",    # Single quotes found but double quotes preferred
-    "RUF067",  # __init__ should only contain docstrings and re-exports
+    "missing-copyright-notice",  # Copyright notice
+    "incorrect-blank-line-before-class",    # One blank line before class docstring
+    "multi-line-summary-first-line",    # Multi-line summary first line
+    "too-many-arguments", # Too many arguments
+    "bad-quotes-inline-string",    # Single quotes found but double quotes preferred
+    "non-empty-init-module",  # __init__ should only contain docstrings and re-exports
 ]
 line-length = 120
 show-fixes = true
@@ -182,10 +182,10 @@ max-complexity = 10
 
 [tool.ruff.lint.per-file-ignores]
 # https://beta.ruff.rs/docs/rules/
-"__init__.py" = ["F401", "F403", "F405",]
-"tests/*" = ["ANN", "ARG", "INP001", "S101",]
-"logger.py" = ["N815",]
-"crud.py" = ["E712",]
+"__init__.py" = ["unused-import", "undefined-local-with-import-star", "undefined-local-with-import-star-usage",]
+"tests/*" = ["ANN", "ARG", "implicit-namespace-package", "assert",]
+"logger.py" = ["mixed-case-variable-in-class-scope",]
+"crud.py" = ["true-false-comparison",]
 
 
 [tool.ruff.lint.pylint]

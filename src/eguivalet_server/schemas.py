@@ -64,7 +64,7 @@ class Message(BaseModel):
         orm_mode = True
 
     @validator("message")
-    def message_length_acceptable(cls: type[Message], value: str) -> str:  # type: ignore[misc]  # noqa: N805
+    def message_length_acceptable(cls: type[Message], value: str) -> str:  # type: ignore[misc]  # ruff:ignore[invalid-first-argument-name-for-method]
         """
         Verify that the message length makes sense.
 
@@ -84,7 +84,7 @@ class Message(BaseModel):
         return value
 
     @validator("user_id")
-    def user_id_exists(cls: type[Message], value: UUID) -> UUID:  # type: ignore[misc] # noqa: N805
+    def user_id_exists(cls: type[Message], value: UUID) -> UUID:  # type: ignore[misc] # ruff:ignore[invalid-first-argument-name-for-method]
         """
         Verify that the given user exists (just in case).
 
@@ -113,7 +113,7 @@ class Room(BaseModel):
         orm_mode = True
 
     @validator("owner")
-    def owner_exists(cls: type[Room], value: UUID | None) -> UUID | None:  # type: ignore[misc] # noqa: N805
+    def owner_exists(cls: type[Room], value: UUID | None) -> UUID | None:  # type: ignore[misc] # ruff:ignore[invalid-first-argument-name-for-method]
         """
         Verify that the room owner exists.
 
@@ -124,7 +124,7 @@ class Room(BaseModel):
         return value  # NOTE: Add validation
 
     @validator("owner")
-    def public_if_no_owner(cls: type[Room], value: UUID | None, values: dict[str, object]) -> UUID | None:  # type: ignore[misc] # noqa: N805
+    def public_if_no_owner(cls: type[Room], value: UUID | None, values: dict[str, object]) -> UUID | None:  # type: ignore[misc] # ruff:ignore[invalid-first-argument-name-for-method]
         """
         Verify that the server is public if no owner is set.
 

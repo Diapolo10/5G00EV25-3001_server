@@ -4,10 +4,10 @@ from __future__ import annotations
 
 import logging
 from typing import TYPE_CHECKING, Annotated
-from uuid import UUID  # noqa: TC003
+from uuid import UUID  # ruff:ignore[typing-only-standard-library-import]
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session  # noqa: TC002
+from sqlalchemy.orm import Session  # ruff:ignore[typing-only-third-party-import]
 
 from eguivalet_server import crud
 from eguivalet_server.database import get_db

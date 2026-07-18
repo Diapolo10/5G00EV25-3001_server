@@ -30,7 +30,7 @@ def test_read_users_first_only(db_session, test_users):
 def test_read_users_slice(db_session, test_users):
     """Tests fetching a slice of users."""
     db_users = crud.read_users(db_session, skip=1, limit=3)
-    assert len(db_users) == 3, db_users  # noqa: PLR2004
+    assert len(db_users) == 3, db_users  # ruff:ignore[magic-value-comparison]
     assert {user.id for user in db_users} == set(test_users[1:4]), (db_users, test_users[1:4])
 
 
