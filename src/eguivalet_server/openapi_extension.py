@@ -32,7 +32,7 @@ def add_examples(openapi_schema: dict, docs_dir: Path = CODE_EXAMPLES) -> dict:
             parts = file.name.split("-")
             if len(parts) >= 1:
                 route = "/"
-                if len(parts) >= 2:  # noqa: PLR2004
+                if len(parts) >= 2:  # ruff:ignore[magic-value-comparison]
                     route += "/".join(parts[:-1])
                     if not parts[-2].endswith("}"):
                         route += "/"

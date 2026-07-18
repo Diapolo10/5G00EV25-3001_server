@@ -31,13 +31,13 @@ MAX_PASSWORD_HASH_LENGTH = 128
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///./server.db"
 SQLALCHEMY_TEST_DATABASE_URL = "sqlite:///./tests/test.db"
-# SQLALCHEMY_DATABASE_USERNAME = 'user'  # noqa: ERA001
-# SQLALCHEMY_DATABASE_PASSWORD = 'password'  # If used, this should be an environmental variable  # noqa: ERA001
-# SQLALCHEMY_DATABASE_URL = (  # noqa: ERA001, RUF100
-#     'postgresql://'  # noqa: ERA001
-#     f'{SQLALCHEMY_DATABASE_USERNAME}:{SQLALCHEMY_DATABASE_PASSWORD}'  # noqa: ERA001
+# SQLALCHEMY_DATABASE_USERNAME = 'user'  # ruff:ignore[commented-out-code]
+# SQLALCHEMY_DATABASE_PASSWORD = 'password'  # If used, this should be an environmental variable  # ruff:ignore[commented-out-code]
+# SQLALCHEMY_DATABASE_URL = (  # ruff:ignore[commented-out-code]
+#     'postgresql://'  # ruff:ignore[commented-out-code]
+#     f'{SQLALCHEMY_DATABASE_USERNAME}:{SQLALCHEMY_DATABASE_PASSWORD}'  # ruff:ignore[commented-out-code]
 #     '@postgresserver/db'
-# )  # noqa: ERA001, RUF100
+# )  # ruff:ignore[commented-out-code]
 
 
 # Enums
