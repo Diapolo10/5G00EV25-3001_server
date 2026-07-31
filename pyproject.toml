@@ -101,7 +101,7 @@ optional = true
 
 
 [tool.poetry.group.linters.dependencies]
-ruff = "^0.15.0"
+ruff = ">=0.15,<0.17"
 
 
 [tool.poetry.group.tests]
