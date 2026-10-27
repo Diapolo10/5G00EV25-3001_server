@@ -1,13 +1,10 @@
 [build-system]
-requires = ["poetry-core>=1.2.0", "wheel",]
+requires = ["poetry-core>=1.2.0", "wheel"]
 build-backend = "poetry.core.masonry.api"
 
 
 [tool.coverage.report]
-exclude_lines = [
-    "pragma: not covered",
-    "@overload",
-]
+exclude_lines = ["pragma: not covered", "@overload"]
 
 
 [tool.coverage.run]
@@ -17,13 +14,13 @@ omit = [
     ".tox/*",
     "**/__main__.py",
     "tests/*",
-    "**/main.py",  # No point in including code that cannot be tested anyway
+    "**/main.py",              # No point in including code that cannot be tested anyway
     "**/openapi_extension.py",
 ]
 
 
 [tool.mypy]
-plugins = ["sqlmypy",]
+plugins = ["sqlmypy"]
 
 
 [tool.poetry]
@@ -31,11 +28,9 @@ name = "eguivalet_server"
 version = "0.2.1"
 description = "A server implementation for the EguiValet messaging service."
 
-packages = [
-    { include = "eguivalet_server", from = "src" },
-]
+packages = [{ include = "eguivalet_server", from = "src" }]
 
-authors = ["Lari Liuhamo <lari.liuhamo+pypi@gmail.com>",]
+authors = ["Lari Liuhamo <lari.liuhamo+pypi@gmail.com>"]
 maintainers = [
     "Juha Järvinen <juha.3.jarvinen@tuni.fi>",
     "Lari Liuhamo <lari.liuhamo+pypi@gmail.com>",
@@ -80,18 +75,18 @@ classifiers = [
 
 
 [tool.poetry.dependencies]
-python = "^3.10.0"
-fastapi = {version=">=0.128.1", extras=["all",]}
-uvicorn = ">=0.46.0"
-SQLAlchemy = ">=1.4.54"
-SQLAlchemy-Utils = ">=0.42.1"
-python-multipart = ">=0.0.28"
-requests = "^2.31.0"
-tomli = "^2.0.1"
+python = "^3.11.0"
+fastapi = { version = ">=0.162.0", extras = ["all"] }
+uvicorn = ">=0.54.0"
+SQLAlchemy = ">=2.1.6"
+SQLAlchemy-Utils = ">=0.43.0"
+python-multipart = ">=0.0.32"
+requests = "^2.34.2"
+tomli = "^2.5.0"
 
 
 [tool.poetry.group.dev.dependencies]
-mypy = "^2.1.0"
+mypy = "^2.4.0"
 sqlalchemy-stubs = "^0.4.0"
 types-sqlalchemy-utils = "^1.1.0"
 
@@ -122,16 +117,14 @@ tox-gh-actions = "^3.5.0"
 
 
 [tool.pylint."FORMAT"]
-good-names = [
-    "db",
-]
+good-names = ["db"]
 
 
 [tool.pylint."MESSAGES CONTROL"]
 max-line-length = 120
 disable = [
     # https://vald-phoenix.github.io/pylint-errors/
-    "R0903",  # Too few public methods
+    "R0903", # Too few public methods
 ]
 
 
@@ -145,25 +138,23 @@ addopts = """
 --cov-report xml:tests/reports/coverage.xml \
 --ignore=docs/
 """
-testpaths = [
-    "tests",
-]
+testpaths = ["tests"]
 
 
 [tool.ruff]
 lint.select = ["ALL"]
 lint.ignore = [
-    "missing-copyright-notice",  # Copyright notice
-    "incorrect-blank-line-before-class",    # One blank line before class docstring
-    "multi-line-summary-first-line",    # Multi-line summary first line
-    "too-many-arguments", # Too many arguments
-    "bad-quotes-inline-string",    # Single quotes found but double quotes preferred
-    "non-empty-init-module",  # __init__ should only contain docstrings and re-exports
+    "missing-copyright-notice",          # Copyright notice
+    "incorrect-blank-line-before-class", # One blank line before class docstring
+    "multi-line-summary-first-line",     # Multi-line summary first line
+    "too-many-arguments",                # Too many arguments
+    "bad-quotes-inline-string",          # Single quotes found but double quotes preferred
+    "non-empty-init-module",             # __init__ should only contain docstrings and re-exports
 ]
 line-length = 120
 show-fixes = true
 preview = true
-src = ["src",]
+src = ["src"]
 target-version = "py310"
 
 
@@ -182,10 +173,14 @@ max-complexity = 10
 
 [tool.ruff.lint.per-file-ignores]
 # https://beta.ruff.rs/docs/rules/
-"__init__.py" = ["unused-import", "undefined-local-with-import-star", "undefined-local-with-import-star-usage",]
-"tests/*" = ["ANN", "ARG", "implicit-namespace-package", "assert",]
-"logger.py" = ["mixed-case-variable-in-class-scope",]
-"crud.py" = ["true-false-comparison",]
+"__init__.py" = [
+    "unused-import",
+    "undefined-local-with-import-star",
+    "undefined-local-with-import-star-usage",
+]
+"tests/*" = ["ANN", "ARG", "implicit-namespace-package", "assert"]
+"logger.py" = ["mixed-case-variable-in-class-scope"]
+"crud.py" = ["true-false-comparison"]
 
 
 [tool.ruff.lint.pylint]
