@@ -197,12 +197,11 @@ ban-relative-imports = "all"
 [tool.tox]
 legacy_tox_ini = """
 [tox]
-envlist = py310, py311, py312
+envlist = py311, py312
 skip_missing_interpreters = true
 
 [gh-actions]
 python =
-    3.10: py310
     3.11: py311
     3.12: py312
 
